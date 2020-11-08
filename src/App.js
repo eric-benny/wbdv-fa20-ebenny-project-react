@@ -1,25 +1,50 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import {BrowserRouter, Route} from "react-router-dom";
+import Homepage from "./components/HomepageConmponent";
+import {Provider} from "react-redux";
+import {createStore} from "redux";
+import rootReducer from "./reducers";
+import Login from "./components/admin/LoginComponent";
+import SignUp from "./components/admin/SignupComponent";
+import Search from "./components/SearchComponent";
+import Profile from "./components/ProfileComponent";
+import Trip from "./components/TripComponent";
+import Place from "./components/PlaceComponent";
+
+
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Provider store={store}>
+            <BrowserRouter>
+                <div>
+                    <Route path="/"
+                           exact
+                           component={Homepage}/>
+                    <Route path="/login"
+                           exact
+                           component={Login}/>
+                    <Route path="/signup"
+                           exact
+                           component={SignUp}/>
+                    <Route path="/search"
+                           exact
+                           component={Search}/>
+                    <Route path="/user/profile"
+                           exact
+                           component={Profile}/>
+                    <Route path="/user/trip"
+                           exact
+                           component={Trip}/>
+                    <Route path="/user/place"
+                           exact
+                           component={Place}/>
+                </div>
+            </BrowserRouter>
+        </Provider>
+    );
 }
 
 export default App;

@@ -14,7 +14,7 @@ const Navigation = () =>
             </LinkContainer>
         </Nav>
         <Nav>
-            <LinkContainer to="user/profile">
+            <LinkContainer to="/user/profile">
                 <Nav.Link>
                     Profile
                 </Nav.Link>

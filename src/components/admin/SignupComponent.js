@@ -14,7 +14,7 @@ const SignUp = () =>
                     <Form.Control type="test" placeholder="Enter name" />
                 </Form.Group>
                 <Form.Group controlId="formCountry">
-                    <Form.Label>Email address</Form.Label>
+                    <Form.Label>Country</Form.Label>
                     <Form.Control type="text" placeholder="Enter country" />
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">

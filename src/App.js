@@ -7,10 +7,11 @@ import {createStore} from "redux";
 import rootReducer from "./reducers";
 import Login from "./components/admin/LoginComponent";
 import SignUp from "./components/admin/SignupComponent";
-import Search from "./components/SearchComponent";
+import SearchComponent from "./components/search/SearchComponent";
 import Profile from "./components/ProfileComponent";
 import Trip from "./components/TripComponent";
-import Place from "./components/PlaceComponent";
+import Place from "./components/locations/PlaceComponent";
+import City from "./components/locations/CityComponent";
 
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
@@ -31,14 +32,20 @@ function App() {
                            component={SignUp}/>
                     <Route path="/search"
                            exact
-                           component={Search}/>
+                           component={SearchComponent}/>
                     <Route path="/user/profile"
                            exact
                            component={Profile}/>
-                    <Route path="/user/trip"
+                    <Route path="/user/trip/:tripId"
                            exact
                            component={Trip}/>
-                    <Route path="/user/place"
+                    <Route path="/user/trip/:tripId/:tab"
+                           exact
+                           component={Trip}/>
+                    <Route path="/user/city/:cityId"
+                           exact
+                           component={City}/>
+                    <Route path="/user/city/:cityId/place/:placeId"
                            exact
                            component={Place}/>
                 </div>

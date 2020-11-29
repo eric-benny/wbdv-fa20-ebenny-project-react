@@ -14,7 +14,8 @@ const Navigation = () =>
             </LinkContainer>
         </Nav>
         <Nav>
-            <LinkContainer to="/user/profile">
+            {/*TODO: remove hardcoded user id*/}
+            <LinkContainer to="/5fc3d9957fa48ff2cf242f36/profile">
                 <Nav.Link>
                     Profile
                 </Nav.Link>

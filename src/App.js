@@ -33,19 +33,19 @@ function App() {
                     <Route path="/search"
                            exact
                            component={SearchComponent}/>
-                    <Route path="/user/profile"
+                    <Route path="/:userID/profile"
                            exact
                            component={Profile}/>
-                    <Route path="/user/trip/:tripId"
+                    <Route path="/:userID/trip/:tripId"
                            exact
                            component={Trip}/>
-                    <Route path="/user/trip/:tripId/:tab"
+                    <Route path="/:userID/trip/:tripId/:tab"
                            exact
                            component={Trip}/>
-                    <Route path="/user/city/:cityId"
+                    <Route path="/:userId/city/:cityId"
                            exact
                            component={City}/>
-                    <Route path="/user/city/:cityId/place/:placeId"
+                    <Route path="/:userID/city/:cityId/place/:placeId"
                            exact
                            component={Place}/>
                 </div>

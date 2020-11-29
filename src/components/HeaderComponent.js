@@ -9,7 +9,8 @@ import Button from "react-bootstrap/Button";
 const Header = ({title}) =>
     <Navbar bg="light" variant="light">
         <Nav className="mr-auto">
-            <LinkContainer to="/user/profile">
+            {/*TODO: remove hardcoded user id*/}
+            <LinkContainer to="/5fc3d9957fa48ff2cf242f36/profile">
                 <Nav.Link>
                     <FontAwesomeIcon icon={faTimes}/>
                 </Nav.Link>

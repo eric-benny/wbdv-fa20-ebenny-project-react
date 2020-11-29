@@ -18,7 +18,8 @@ const Login = () =>
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" />
                 </Form.Group>
-                <LinkContainer to="/user/profile">
+                {/*TODO: remove hardcoded user id*/}
+                <LinkContainer to="/5fc3d9957fa48ff2cf242f36/profile">
                     <Button variant="primary" type="submit">
                         Login
                     </Button>

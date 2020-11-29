@@ -11,10 +11,15 @@ import {
     updateAutofillCities,
     updateSearchCity
 } from "../actions/search/citySearchActions";
-import {addCity} from "../actions/locations/cityActions";
+import {addCity, fetchCitiesForUser} from "../actions/locations/cityActions";
 import {connect} from "react-redux";
 
 export class Profile extends React.Component {
+
+    componentDidMount() {
+        const userId = this.props.match.params.userID;
+        this.props.fetchCitiesForUser(userId);
+    }
 
     render() {
         return (
@@ -36,7 +41,7 @@ export class Profile extends React.Component {
                                                                (
                                                                    <tr>
                                                                        <td>
-                                                                           <Link to={`/user/trip/${trip.id}`}>
+                                                                           <Link to={`/${this.props.match.params.userID}/trip/${trip.id}`}>
                                                                                {trip.name}
                                                                            </Link>
                                                                        </td>
@@ -63,11 +68,11 @@ export class Profile extends React.Component {
                                                                (
                                                                    <tr>
                                                                        <td>
-                                                                           <Link to={`/user/city/${city.id}`}>
+                                                                           <Link to={`/${this.props.match.params.userID}/city/${city.id}`}>
                                                                                {city.name}
                                                                            </Link>
                                                                        </td>
-                                                                       <td>{city.countryName}</td>
+                                                                       <td>{city.country}</td>
                                                                        <td>{city.state}</td>
                                                                        <td>
                                                                            <FontAwesomeIcon
@@ -93,6 +98,7 @@ const stateToPropertyMapper = (state) => ({
 });
 
 const propertyToDispatchMapper = (dispatch) => ({
+    fetchCitiesForUser: (uid) => fetchCitiesForUser(dispatch, uid),
     addCity: (city) => addCity(dispatch, city)
 });
 

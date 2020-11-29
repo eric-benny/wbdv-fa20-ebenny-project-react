@@ -1,4 +1,9 @@
-import {ADD_CITY, FETCH_CITY, FIND_CITIES_FOR_TRIP} from "../actions/locations/cityActions";
+import {
+    ADD_CITY,
+    FETCH_CITIES_FOR_USER,
+    FETCH_CITY,
+    FIND_CITIES_FOR_TRIP
+} from "../actions/locations/cityActions";
 
 const tempCitiesForTrip = [
     {
@@ -8,45 +13,7 @@ const tempCitiesForTrip = [
 ]
 
 const initialState = {
-    userCities: [
-        {
-            id:11875708,
-            name:"Métropole du Grand Paris",
-            population:7070000,
-            countryName:"France",
-            longitude:"2.37077",
-            latitude:"48.79591",
-            state: "FR"
-        },
-        {
-            id:4347242,
-            name:"Annapolis",
-            population:39474,
-            countryName:"United States",
-            longitude:"-76.49184",
-            latitude:"38.97859",
-            state: "MD"
-        },
-        {
-            id:6942553,
-            name:"Paris",
-            population:11177,
-            countryName:"Canada",
-            longitude:"-80.38333",
-            latitude:"43.2",
-            state: "ON"
-
-        },
-        {
-            id:830708,
-            name:"Varsinais-Suomi",
-            population:470880,
-            countryName:"Finland",
-            longitude:"22.25",
-            latitude:"60.5",
-            state: "FIN"
-        }
-    ],
+    userCities: [],
     selectedCity: {},
     citiesForTrip: []
 }
@@ -63,6 +30,11 @@ const cityReducer = (state=initialState, action) => {
                 ...state,
                 selectedCity: state.userCities.find(city => city.id === action.cityId)
             };
+        case FETCH_CITIES_FOR_USER:
+            return {
+                ...state,
+                userCities: action.cities
+            }
         case FIND_CITIES_FOR_TRIP:
             return {
                 ...state,

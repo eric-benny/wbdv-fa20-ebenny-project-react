@@ -1,7 +1,9 @@
 import userCityService from "../../services/userCityService";
+import cityService from "../../services/cityService"
 
 export const ADD_CITY = 'ADD_CITY';
 export const FETCH_CITY = 'FETCH_CITY';
+export const FETCH_CITY_INFO = 'FETCH_CITY_INFO';
 export const FIND_CITIES_FOR_TRIP = 'FIND_CITIES_FOR_TRIP';
 export const FETCH_CITIES_FOR_USER = 'FETCH_CITIES_FOR_USER';
 
@@ -10,7 +12,12 @@ export const addCity = (dispatch, city) => {
 };
 
 export const fetchCity = (dispatch, cityId) => {
-    dispatch({ type: FETCH_CITY, cityId })
+    userCityService.fetchCityById(cityId)
+        .then(city => {
+            cityService.fetchCity(city.infoId)
+                .then(cityInfo => dispatch({type: FETCH_CITY_INFO, cityInfo}));
+            dispatch({type: FETCH_CITY, city})
+        })
 }
 
 export const fetchCitiesForTrip = (dispatch, tripId) => {

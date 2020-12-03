@@ -1,7 +1,7 @@
 import {
     ADD_CITY,
     FETCH_CITIES_FOR_USER,
-    FETCH_CITY,
+    FETCH_CITY, FETCH_CITY_INFO,
     FIND_CITIES_FOR_TRIP
 } from "../actions/locations/cityActions";
 
@@ -15,6 +15,7 @@ const tempCitiesForTrip = [
 const initialState = {
     userCities: [],
     selectedCity: {},
+    selectedCityInfo: {},
     citiesForTrip: []
 }
 
@@ -28,7 +29,12 @@ const cityReducer = (state=initialState, action) => {
         case FETCH_CITY:
             return {
                 ...state,
-                selectedCity: state.userCities.find(city => city.id === action.cityId)
+                selectedCity: action.city
+            };
+        case FETCH_CITY_INFO:
+            return {
+                ...state,
+                selectedCityInfo: action.cityInfo
             };
         case FETCH_CITIES_FOR_USER:
             return {

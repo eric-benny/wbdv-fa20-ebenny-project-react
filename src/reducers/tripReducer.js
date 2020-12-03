@@ -1,58 +1,7 @@
-import {FETCH_TRIP} from "../actions/tripActions";
+import {FETCH_TRIP, FETCH_TRIPS_FOR_USER} from "../actions/tripActions";
 
 const initialState = {
-    userTrips: [
-        {
-            id:123,
-            name:"Paris Trip",
-            date:"10/10/2022",
-            cities: [
-                {
-                 id: 11875708,
-                 places: [123,789]
-                }
-            ],
-            itinerary: "",
-            travelLog: ""
-        },
-        {
-            id:456,
-            name:"Foliage",
-            date:"10/10/2022",
-            cities: [
-                {
-
-                }
-            ],
-            itinerary: "",
-            travelLog: ""
-        },
-        {
-            id:789,
-            name:"Summer Vacation",
-            date:"10/10/2022",
-            cities: [
-                {
-                    id: 4347242,
-                    places: [34897]
-                }
-            ],
-            itinerary: "",
-            travelLog: ""
-        },
-        {
-            id:4587,
-            name:"History Trip",
-            date:"10/10/2022",
-            cities: [
-                {
-
-                }
-            ],
-            itinerary: "",
-            travelLog: ""
-        }
-    ],
+    userTrips: [],
     selectedTrip: {}
 }
 
@@ -61,7 +10,12 @@ const tripReducer = (state=initialState, action) => {
         case FETCH_TRIP:
             return {
                 ...state,
-                selectedTrip: state.userTrips.find(trip => trip.id === action.tripId)
+                selectedTrip: action.trip
+            }
+        case FETCH_TRIPS_FOR_USER:
+            return {
+                ...state,
+                userTrips: action.trips
             }
         default:
             return state

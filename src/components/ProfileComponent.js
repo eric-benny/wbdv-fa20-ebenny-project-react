@@ -6,19 +6,16 @@ import Table from "react-bootstrap/Table";
 import {Link} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
-import {
-    executeCitySearch,
-    updateAutofillCities,
-    updateSearchCity
-} from "../actions/search/citySearchActions";
 import {addCity, fetchCitiesForUser} from "../actions/locations/cityActions";
 import {connect} from "react-redux";
+import {fetchTripsForUser} from "../actions/tripActions";
 
 export class Profile extends React.Component {
 
     componentDidMount() {
         const userId = this.props.match.params.userID;
         this.props.fetchCitiesForUser(userId);
+        this.props.fetchTripsForUser(userId);
     }
 
     render() {
@@ -37,17 +34,21 @@ export class Profile extends React.Component {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {this.props.userTrips.map(trip =>
-                                                               (
-                                                                   <tr>
-                                                                       <td>
-                                                                           <Link to={`/${this.props.match.params.userID}/trip/${trip.id}`}>
-                                                                               {trip.name}
-                                                                           </Link>
-                                                                       </td>
-                                                                       <td>{trip.date}</td>
-                                                                   </tr>
-                                                               )
+                                {this.props.userTrips.map(trip => {
+                                                              const date = new Date(trip.date);
+                                                              console.log(date.toISOString());
+                                                              return (
+                                                                  <tr key={trip._id}>
+                                                                      <td>
+                                                                          <Link
+                                                                              to={`/${this.props.match.params.userID}/trip/${trip._id}`}>
+                                                                              {trip.name}
+                                                                          </Link>
+                                                                      </td>
+                                                                      <td>{date.getFullYear()}-{date.getMonth() + 1}-{date.getUTCDate()}</td>
+                                                                  </tr>
+                                                              )
+                                                          }
                                 )}
                                 </tbody>
                             </Table>
@@ -66,9 +67,9 @@ export class Profile extends React.Component {
                                 <tbody>
                                 {this.props.userCities.map(city =>
                                                                (
-                                                                   <tr>
+                                                                   <tr key={city._id}>
                                                                        <td>
-                                                                           <Link to={`/${this.props.match.params.userID}/city/${city.id}`}>
+                                                                           <Link to={`/${this.props.match.params.userID}/city/${city._id}`}>
                                                                                {city.name}
                                                                            </Link>
                                                                        </td>
@@ -99,6 +100,7 @@ const stateToPropertyMapper = (state) => ({
 
 const propertyToDispatchMapper = (dispatch) => ({
     fetchCitiesForUser: (uid) => fetchCitiesForUser(dispatch, uid),
+    fetchTripsForUser: (uid) => fetchTripsForUser(dispatch, uid),
     addCity: (city) => addCity(dispatch, city)
 });
 

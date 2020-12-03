@@ -12,7 +12,7 @@ import {faCheck} from "@fortawesome/free-solid-svg-icons";
 class City extends React.Component {
 
     componentDidMount() {
-        const cityId = parseInt(this.props.match.params.cityId);
+        const cityId = this.props.match.params.cityId;
         this.props.fetchCity(cityId);
         this.props.fetchPlacesForCity(cityId);
     }
@@ -20,7 +20,7 @@ class City extends React.Component {
     render() {
         return (
             <div>
-                <Header title={this.props.city.name}/>
+                <Header title={this.props.city.name} history={this.props.history}/>
                 <div className="container">
                     <div className="row">
                         <div className="col-6">
@@ -35,7 +35,7 @@ class City extends React.Component {
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>Country</InputGroup.Text>
                                 </InputGroup.Prepend>
-                                <FormControl readOnly value={this.props.city.countryName}/>
+                                <FormControl readOnly value={this.props.city.country}/>
                             </InputGroup>
                             <InputGroup className="mb-3">
                                 <InputGroup.Prepend>
@@ -52,7 +52,7 @@ class City extends React.Component {
                         </div>
                         <div className="col-6">
                             <h2>Notes</h2>
-                            <p>This is a space to store notes about a place. Things like tip about where and when to go. Things you want to do there. Reminders for when you visit again.</p>
+                            <p>{this.props.city.notes}</p>
                         </div>
                     </div>
                     <div className="row">
@@ -89,6 +89,7 @@ class City extends React.Component {
 
 const stateToPropertyMapper = (state) => ({
     city: state.cityReducer.selectedCity,
+    cityInfo: state.cityReducer.selectedCityInfo,
     cityPlaces: state.placeReducer.placesForCity
 });
 

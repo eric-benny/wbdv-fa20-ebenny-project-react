@@ -15,8 +15,8 @@ import {fetchTrip} from "../actions/tripActions";
 
 class Trip extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         let active = 2;
         let days = [];
         for (let number = 1; number <= 5; number++) {
@@ -38,9 +38,8 @@ class Trip extends React.Component {
     }
 
     componentDidMount() {
-        const tripId = parseInt(this.props.match.params.tripId);
+        const tripId = this.props.match.params.tripId;
         this.props.fetchTrip(tripId);
-        this.props.fetchCitiesForTrip(tripId);
     }
 
     handleSelect = (eventKey) => {
@@ -103,15 +102,15 @@ class Trip extends React.Component {
                              </tr>
                              </thead>
                              <tbody>
-                             {this.props.cities.map(city =>
+                             {this.props.trip.cities.map(city =>
                                                             (
                                                                 <tr>
                                                                     <td>
-                                                                        <Link to={`/user/city/${city.id}`}>
+                                                                        <Link to={`/user/city/${city._id}`}>
                                                                             {city.name}
                                                                         </Link>
                                                                     </td>
-                                                                    <td>{city.countryName}</td>
+                                                                    <td>{city.country}</td>
                                                                     <td>{city.state}</td>
                                                                     <td>
                                                                         <FontAwesomeIcon
@@ -165,14 +164,12 @@ class Trip extends React.Component {
 
 const stateToPropertyMapper = (state) => ({
     trip: state.tripReducer.selectedTrip,
-    cities: state.cityReducer.citiesForTrip,
     cityPlaces: state.placeReducer.citiesForCity
 });
 
 const propertyToDispatchMapper = (dispatch) => ({
     fetchTrip: (tripId) => fetchTrip(dispatch, tripId),
-    fetchPlacesForCity: (cityId) => fetchPlacesForCity(dispatch, cityId),
-    fetchCitiesForTrip: (tripId) => fetchCitiesForTrip(dispatch, tripId)
+    fetchPlacesForCity: (cityId) => fetchPlacesForCity(dispatch, cityId)
 });
 
 export default connect

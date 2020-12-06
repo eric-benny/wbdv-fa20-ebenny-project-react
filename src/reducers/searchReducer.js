@@ -36,7 +36,7 @@ const searchReducer = (state=initialState, action) => {
                         id: city.geonameId,
                         name: city.toponymName,
                         population: city.population,
-                        countryName: city.countryName,
+                        country: city.countryName,
                         longitude: city.lng,
                         latitude: city.lat,
                         otherName: city.name,

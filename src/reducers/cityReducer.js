@@ -24,7 +24,7 @@ const cityReducer = (state=initialState, action) => {
         case ADD_CITY:
             return {
                 ...state,
-                userCities: [ ...state.userCities, action.city ]
+                userCities: [ ...state.userCities, action.newCity ]
             };
         case FETCH_CITY:
             return {

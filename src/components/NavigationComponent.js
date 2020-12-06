@@ -22,7 +22,8 @@ const Navigation = () =>
             </LinkContainer>
         </Nav>
         <Nav className="mr-auto">
-            <LinkContainer to="/search">
+            {/*TODO: remove hardcoded user id*/}
+            <LinkContainer to="/5fc3d9957fa48ff2cf242f36/search">
                 <Nav.Link>
                     Search
                 </Nav.Link>

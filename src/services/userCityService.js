@@ -15,7 +15,19 @@ export const fetchCityById = (cid) => {
         })
 };
 
+export const createCity = (uid, city) => {
+    return fetch(`${userUrl}/${uid}/cities`, {
+        method: 'POST',
+        body: JSON.stringify(city),
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+}
+
 export default {
     fetchCitiesForUser,
-    fetchCityById
+    fetchCityById,
+    createCity
 }

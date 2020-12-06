@@ -15,10 +15,15 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Table from "react-bootstrap/Table";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
-import {addCity} from "../../actions/locations/cityActions";
+import {addCity, fetchCitiesForUser} from "../../actions/locations/cityActions";
 
 
 class SearchComponent extends React.Component {
+
+    componentDidMount() {
+        const userId = this.props.match.params.userID;
+        this.props.fetchCitiesForUser(userId);
+    }
 
     onInputChange = (event) => {
         this.props.updateSearchCity(event.target.value);
@@ -81,20 +86,41 @@ class SearchComponent extends React.Component {
                                  <th>Name</th>
                                  <th>Country</th>
                                  <th>Population</th>
+                                 <th>State/Province</th>
                              </tr>
                              </thead>
                              <tbody>
                              {this.props.searchResults.map(city => {
-                                 return (
-                                                               <tr key={city.id}>
-                                                                   <th>{ city.name }</th>
-                                                                   <th>{ city.countryName }</th>
-                                                                   <th>{ city.population }</th>
-                                                                   <th>
-                                                                       <Button primary className="fa fa-plus fa-lg" onClick={() => this.props.addCity(city)}/>
-                                                                   </th>
-                                                               </tr>
-                                                           )}
+                                 if(this.props.userCities.find(userCity => {
+                                     return parseInt(userCity.infoId) === city.id
+                                 })) {
+                                     return (
+                                         <tr key={city.id}>
+                                             <th>{city.name}</th>
+                                             <th>{city.country}</th>
+                                             <th>{city.population}</th>
+                                             <th>{city.state}</th>
+                                             <th>
+                                                 added
+                                             </th>
+                                         </tr>
+                                     )
+                                 } else {
+                                     return (
+                                         <tr key={city.id}>
+                                             <th>{city.name}</th>
+                                             <th>{city.country}</th>
+                                             <th>{city.population}</th>
+                                             <th>{city.state}</th>
+                                             <th>
+                                                 <Button className="fa fa-plus fa-lg"
+                                                         onClick={() => this.props.addCity(
+                                                             this.props.match.params.userID,
+                                                             city)}/>
+                                             </th>
+                                         </tr>
+                                     )
+                                 }}
                              )}
                              </tbody>
                          </Table>
@@ -110,14 +136,16 @@ class SearchComponent extends React.Component {
 const stateToPropertyMapper = (state) => ({
     autofillCities: state.searchReducer.autofillCities,
     searchCity: state.searchReducer.searchCity,
-    searchResults: state.searchReducer.searchResults
+    searchResults: state.searchReducer.searchResults,
+    userCities: state.cityReducer.userCities
 });
 
 const propertyToDispatchMapper = (dispatch) => ({
+    fetchCitiesForUser: (uid) => fetchCitiesForUser(dispatch, uid),
     updateAutofillCities: (cityInput) => updateAutofillCities(dispatch, cityInput),
     updateSearchCity: (searchCity) => updateSearchCity(dispatch, searchCity),
     executeCitySearch: (city) => executeCitySearch(dispatch, city),
-    addCity: (city) => addCity(dispatch, city)
+    addCity: (uid, city) => addCity(dispatch, uid, city)
 });
 
 

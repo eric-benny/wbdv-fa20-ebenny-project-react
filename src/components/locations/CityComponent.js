@@ -20,7 +20,7 @@ class City extends React.Component {
     render() {
         return (
             <div>
-                <Header title={this.props.city.name} history={this.props.history}/>
+                <Header title={this.props.city.name}/>
                 <div className="container">
                     <div className="row">
                         <div className="col-6">

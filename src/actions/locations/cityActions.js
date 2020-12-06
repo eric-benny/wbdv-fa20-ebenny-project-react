@@ -7,8 +7,9 @@ export const FETCH_CITY_INFO = 'FETCH_CITY_INFO';
 export const FIND_CITIES_FOR_TRIP = 'FIND_CITIES_FOR_TRIP';
 export const FETCH_CITIES_FOR_USER = 'FETCH_CITIES_FOR_USER';
 
-export const addCity = (dispatch, city) => {
-    dispatch({ type: ADD_CITY, city })
+export const addCity = (dispatch, uid, city) => {
+    userCityService.createCity(uid, city)
+        .then(newCity => dispatch({ type: ADD_CITY, newCity }))
 };
 
 export const fetchCity = (dispatch, cityId) => {

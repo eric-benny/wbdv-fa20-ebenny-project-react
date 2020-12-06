@@ -36,7 +36,6 @@ export class Profile extends React.Component {
                                 <tbody>
                                 {this.props.userTrips.map(trip => {
                                                               const date = new Date(trip.date);
-                                                              console.log(date.toISOString());
                                                               return (
                                                                   <tr key={trip._id}>
                                                                       <td>

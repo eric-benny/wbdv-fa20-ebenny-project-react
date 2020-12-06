@@ -30,7 +30,7 @@ function App() {
                     <Route path="/signup"
                            exact
                            component={SignUp}/>
-                    <Route path="/search"
+                    <Route path="/:userID/search"
                            exact
                            component={SearchComponent}/>
                     <Route path="/:userID/profile"

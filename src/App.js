@@ -30,22 +30,22 @@ function App() {
                     <Route path="/signup"
                            exact
                            component={SignUp}/>
-                    <Route path="/:userID/search"
+                    <Route path={["/:userId/search", "/:userId/search/:city"]}
                            exact
                            component={SearchComponent}/>
-                    <Route path="/:userID/profile"
+                    <Route path="/:userId/profile"
                            exact
                            component={Profile}/>
-                    <Route path="/:userID/trip/:tripId"
+                    <Route path="/:userId/trip/:tripId"
                            exact
                            component={Trip}/>
-                    <Route path="/:userID/trip/:tripId/:tab"
+                    <Route path="/:userId/trip/:tripId/:tab"
                            exact
                            component={Trip}/>
                     <Route path="/:userId/city/:cityId"
                            exact
                            component={City}/>
-                    <Route path="/:userID/city/:cityId/place/:placeId"
+                    <Route path="/:userId/city/:cityId/place/:placeId"
                            exact
                            component={Place}/>
                 </div>

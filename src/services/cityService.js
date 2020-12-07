@@ -1,4 +1,3 @@
-import {fetchCitiesForUser} from "./userCityService";
 
 export const fetchAutofillCities = (citySearchField) => {
     return fetch(`http://api.geonames.org/searchJSON?name_startsWith=${citySearchField}&maxRows=20&orderby=population&username=bennye`)

@@ -21,8 +21,24 @@ import {addCity, fetchCitiesForUser} from "../../actions/locations/cityActions";
 class SearchComponent extends React.Component {
 
     componentDidMount() {
-        const userId = this.props.match.params.userID;
+        const userId = this.props.match.params.userId;
+        const city = this.props.match.params.city;
+
         this.props.fetchCitiesForUser(userId);
+        if (city) {
+            this.props.updateSearchCity(city)
+            this.searchForCity(city)
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const city = this.props.match.params.city
+        if (prevProps.match.params.city !== city) {
+            if (city) {
+                this.props.updateSearchCity(city)
+                this.searchForCity(city)
+            }
+        }
     }
 
     onInputChange = (event) => {
@@ -31,13 +47,19 @@ class SearchComponent extends React.Component {
     };
 
     onSelect = (cityName) => {
-        this.props.updateSearchCity(cityName)
+        this.props.updateSearchCity(cityName);
         this.props.updateAutofillCities('')
     };
 
-    search = () => {
+    search = (event) => {
+        event.preventDefault();
+        this.props.history.push(`/${this.props.match.params.userId}/search/${this.props.searchCity}`)
+        this.searchForCity(this.props.searchCity)
+    }
+
+    searchForCity = (city) => {
         this.props.updateAutofillCities('')
-        this.props.executeCitySearch(this.props.searchCity)
+        this.props.executeCitySearch(city)
     }
 
     render() {
@@ -46,7 +68,7 @@ class SearchComponent extends React.Component {
             <div>
                 <Navigation/>
                 <div className="container my-2">
-                    <Form>
+                    <Form onSubmit={this.search}>
                         <Form.Group as={Row} controlId="formSearch" className="mb-0">
                             <Form.Label column sm="2">Location Search</Form.Label>
                             <Col sm="8" >
@@ -57,7 +79,7 @@ class SearchComponent extends React.Component {
                                               onChange={this.onInputChange}/>
                             </Col>
                             <Col sm="2">
-                                <Button variant="primary" onClick={this.search}>
+                                <Button variant="primary" type="submit">
                                     Search
                                 </Button>
                             </Col>
@@ -115,7 +137,7 @@ class SearchComponent extends React.Component {
                                              <th>
                                                  <Button className="fa fa-plus fa-lg"
                                                          onClick={() => this.props.addCity(
-                                                             this.props.match.params.userID,
+                                                             this.props.match.params.userId,
                                                              city)}/>
                                              </th>
                                          </tr>

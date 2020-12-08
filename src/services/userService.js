@@ -43,8 +43,14 @@ export const registerUser = (user) => {
         })
 };
 
+export const logoutUser = () => {
+    return fetch(`${userUrl}/logout`)
+        .then(response => response)
+};
+
 
 export default {
     loginUser,
-    registerUser
+    registerUser,
+    logoutUser
 }

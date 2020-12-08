@@ -21,7 +21,7 @@ export class Profile extends React.Component {
     render() {
         return (
             <div>
-                <Navigation/>
+                <Navigation user={this.props.match.params.userId}/>
                 <div className="container">
                     <div className="row">
                         <div className="col-6">

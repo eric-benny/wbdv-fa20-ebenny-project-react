@@ -21,7 +21,7 @@ function App() {
         <Provider store={store}>
             <BrowserRouter>
                 <div>
-                    <Route path="/"
+                    <Route path={["/home","/:userId/home"]}
                            exact
                            component={Homepage}/>
                     <Route path="/login"
@@ -30,10 +30,10 @@ function App() {
                     <Route path="/signup"
                            exact
                            component={SignUp}/>
-                    <Route path={["/:userId/search", "/:userId/search/:city"]}
+                    <Route path={["/:userId/search", "/:userId/search/:city", "/search", "/search/:city"]}
                            exact
                            component={SearchComponent}/>
-                    <Route path="/:userId/profile"
+                    <Route path={["/:userId/profile"]}
                            exact
                            component={Profile}/>
                     <Route path="/:userId/trip/:tripId"

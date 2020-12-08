@@ -66,7 +66,7 @@ class SearchComponent extends React.Component {
 
         return(
             <div>
-                <Navigation/>
+                <Navigation user={this.props.match.params.userId}/>
                 <div className="container my-2">
                     <Form onSubmit={this.search}>
                         <Form.Group as={Row} controlId="formSearch" className="mb-0">

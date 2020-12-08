@@ -47,7 +47,7 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                <Navigation/>
+                <Navigation user={this.props.match.params.userId}/>
                 <div className="container">
                     <Form onSubmit={this.loginUser}>
                         <Form.Group controlId="formBasicEmail">

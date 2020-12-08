@@ -76,7 +76,7 @@ class SignUp extends React.Component {
     render() {
         return (
             <div>
-                <Navigation/>
+                <Navigation user={this.props.match.params.userId}/>
                 <div className="container">
                     <Form onSubmit={this.registerUser}>
                         <Form.Group controlId="formUsername">

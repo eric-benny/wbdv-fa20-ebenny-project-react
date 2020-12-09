@@ -3,25 +3,25 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import {LinkContainer} from "react-router-bootstrap";
 import userService from "../services/userService";
-import {addCity, fetchCitiesForUser} from "../actions/locations/cityActions";
-import {fetchTripsForUser} from "../actions/tripActions";
+import {addCity, clearCitiesForUser, fetchCitiesForUser} from "../actions/locations/cityActions";
+import {clearTripsForUser, fetchTripsForUser} from "../actions/tripActions";
 import {connect} from "react-redux";
 import {Profile} from "./ProfileComponent";
 import {fetchActiveUser, logoutUser} from "../actions/userActions";
 
-// const logout = () => {
-//     userService.logoutUser()
-//         .then(response => {
-//             if (!response.ok) {
-//                 alert("Unable to logout")
-//             }
-//         })
-// }
+
 
 class Navigation extends React.Component {
 
     componentDidMount() {
         this.props.fetchActiveUser()
+    }
+
+
+    logout = () => {
+        this.props.logoutUser()
+        this.props.clearCitiesForUser()
+        this.props.clearTripsForUser()
     }
 
     render() {
@@ -52,7 +52,7 @@ class Navigation extends React.Component {
                 {this.props.userDetails.username &&
                  <Nav className="ml-auto">
                      <Navbar.Brand>{this.props.userDetails.username}</Navbar.Brand>
-                     <LinkContainer to="/home" onClick={this.props.logoutUser}>
+                     <LinkContainer to="/home" onClick={this.logout}>
                          <Nav.Link>
                              Logout
                          </Nav.Link>
@@ -84,7 +84,9 @@ const stateToPropertyMapper = (state) => ({
 
 const propertyToDispatchMapper = (dispatch) => ({
     fetchActiveUser: () => fetchActiveUser(dispatch),
-    logoutUser: () => logoutUser(dispatch)
+    logoutUser: () => logoutUser(dispatch),
+    clearCitiesForUser: () => clearCitiesForUser(dispatch),
+    clearTripsForUser: () => clearTripsForUser(dispatch)
 });
 
 

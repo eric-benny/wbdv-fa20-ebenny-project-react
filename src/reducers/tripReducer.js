@@ -1,4 +1,4 @@
-import {FETCH_TRIP, FETCH_TRIPS_FOR_USER} from "../actions/tripActions";
+import {FETCH_TRIP, FETCH_TRIPS_FOR_USER, CLEAR_TRIPS_FOR_USER} from "../actions/tripActions";
 
 const initialState = {
     userTrips: [],
@@ -16,6 +16,11 @@ const tripReducer = (state=initialState, action) => {
             return {
                 ...state,
                 userTrips: action.trips
+            }
+        case CLEAR_TRIPS_FOR_USER:
+            return {
+                ...state,
+                userTrips: []
             }
         default:
             return state

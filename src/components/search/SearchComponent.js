@@ -21,10 +21,9 @@ import {addCity, fetchCitiesForUser} from "../../actions/locations/cityActions";
 class SearchComponent extends React.Component {
 
     componentDidMount() {
-        const userId = this.props.match.params.userId;
         const city = this.props.match.params.city;
 
-        this.props.fetchCitiesForUser(userId);
+        this.props.fetchCitiesForUser(this.props.userDetails._id);
         if (city) {
             this.props.updateSearchCity(city)
             this.searchForCity(city)
@@ -53,7 +52,7 @@ class SearchComponent extends React.Component {
 
     search = (event) => {
         event.preventDefault();
-        this.props.history.push(`/${this.props.match.params.userId}/search/${this.props.searchCity}`)
+        this.props.history.push(`/search/${this.props.searchCity}`)
         this.searchForCity(this.props.searchCity)
     }
 
@@ -66,7 +65,6 @@ class SearchComponent extends React.Component {
 
         return(
             <div>
-                <Navigation user={this.props.match.params.userId}/>
                 <div className="container my-2">
                     <Form onSubmit={this.search}>
                         <Form.Group as={Row} controlId="formSearch" className="mb-0">
@@ -137,7 +135,7 @@ class SearchComponent extends React.Component {
                                              <th>
                                                  <Button className="fa fa-plus fa-lg"
                                                          onClick={() => this.props.addCity(
-                                                             this.props.match.params.userId,
+                                                             this.props.userDetails._id,
                                                              city)}/>
                                              </th>
                                          </tr>
@@ -156,6 +154,7 @@ class SearchComponent extends React.Component {
 }
 
 const stateToPropertyMapper = (state) => ({
+    userDetails: state.userReducer.userDetails,
     autofillCities: state.searchReducer.autofillCities,
     searchCity: state.searchReducer.searchCity,
     searchResults: state.searchReducer.searchResults,

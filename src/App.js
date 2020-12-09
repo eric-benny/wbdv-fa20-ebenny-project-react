@@ -12,6 +12,7 @@ import Profile from "./components/ProfileComponent";
 import Trip from "./components/TripComponent";
 import Place from "./components/locations/PlaceComponent";
 import City from "./components/locations/CityComponent";
+import Navigation from "./components/NavigationComponent";
 
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
@@ -20,8 +21,9 @@ function App() {
     return (
         <Provider store={store}>
             <BrowserRouter>
+                <Navigation/>
                 <div>
-                    <Route path={["/home","/:userId/home"]}
+                    <Route path={["/home"]}
                            exact
                            component={Homepage}/>
                     <Route path="/login"
@@ -30,22 +32,22 @@ function App() {
                     <Route path="/signup"
                            exact
                            component={SignUp}/>
-                    <Route path={["/:userId/search", "/:userId/search/:city", "/search", "/search/:city"]}
+                    <Route path={["/search", "/search/:city",]}
                            exact
                            component={SearchComponent}/>
-                    <Route path={["/:userId/profile"]}
+                    <Route path={["/profile"]}
                            exact
                            component={Profile}/>
-                    <Route path="/:userId/trip/:tripId"
+                    <Route path="/trip/:tripId"
                            exact
                            component={Trip}/>
-                    <Route path="/:userId/trip/:tripId/:tab"
+                    <Route path="/trip/:tripId/:tab"
                            exact
                            component={Trip}/>
-                    <Route path="/:userId/city/:cityId"
+                    <Route path="/city/:cityId"
                            exact
                            component={City}/>
-                    <Route path="/:userId/city/:cityId/place/:placeId"
+                    <Route path="/city/:cityId/place/:placeId"
                            exact
                            component={Place}/>
                 </div>

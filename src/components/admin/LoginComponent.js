@@ -4,6 +4,8 @@ import Navigation from "../NavigationComponent";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import userService from "../../services/userService";
+import {fetchActiveUser} from "../../actions/userActions";
+import {connect} from "react-redux";
 
 const loginUser = (event) => {
     event.preventDefault();
@@ -22,7 +24,8 @@ class Login extends React.Component {
         userService.loginUser(this.state.username, this.state.password)
             .then(response => {
                 if (isNaN(response)) {
-                    this.props.history.push(`/${response._id}/profile`)
+                    this.props.fetchActiveUser();
+                    this.props.history.push(`/profile`)
                 }
             })
 
@@ -47,7 +50,6 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                <Navigation user={this.props.match.params.userId}/>
                 <div className="container">
                     <Form onSubmit={this.loginUser}>
                         <Form.Group controlId="formBasicEmail">
@@ -75,4 +77,15 @@ class Login extends React.Component {
     }
 }
 
-export default Login
+const stateToPropertyMapper = (state) => ({
+    userDetails: state.userReducer.userDetails
+});
+
+const propertyToDispatchMapper = (dispatch) => ({
+    fetchActiveUser: () => fetchActiveUser(dispatch)
+});
+
+
+export default connect
+(stateToPropertyMapper, propertyToDispatchMapper)
+(Login)

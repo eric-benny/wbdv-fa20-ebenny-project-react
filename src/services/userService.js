@@ -9,7 +9,8 @@ export const loginUser = (username, password) => {
                              }),
         headers: {
             'content-type': 'application/json'
-        }
+        },
+        credentials: 'include'
     })
         .then(response => {
             if (response.status === 403) {
@@ -29,7 +30,8 @@ export const registerUser = (user) => {
         body: JSON.stringify(user),
         headers: {
             'content-type': 'application/json'
-        }
+        },
+        credentials: 'include'
     })
         .then(response => {
             if (response.status === 403) {
@@ -44,13 +46,23 @@ export const registerUser = (user) => {
 };
 
 export const logoutUser = () => {
-    return fetch(`${userUrl}/logout`)
+    return fetch(`${userUrl}/logout`, {
+        credentials: 'include'
+    })
         .then(response => response)
+};
+
+export const fetchUser = () => {
+    return fetch(`${userUrl}/profile`, {
+        credentials: 'include'
+    })
+        .then(response => response.json())
 };
 
 
 export default {
     loginUser,
     registerUser,
-    logoutUser
+    logoutUser,
+    fetchUser
 }

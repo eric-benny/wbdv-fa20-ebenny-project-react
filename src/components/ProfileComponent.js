@@ -13,15 +13,22 @@ import {fetchTripsForUser} from "../actions/tripActions";
 export class Profile extends React.Component {
 
     componentDidMount() {
-        const userId = this.props.match.params.userId;
-        this.props.fetchCitiesForUser(userId);
-        this.props.fetchTripsForUser(userId);
+        this.props.fetchCitiesForUser(this.props.userDetails._id);
+        this.props.fetchTripsForUser(this.props.userDetails._id);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.userDetails._id !== this.props.userDetails._id) {
+            if (this.props.userDetails._id) {
+                this.props.fetchCitiesForUser(this.props.userDetails._id);
+                this.props.fetchTripsForUser(this.props.userDetails._id);
+            }
+        }
     }
 
     render() {
         return (
             <div>
-                <Navigation user={this.props.match.params.userId}/>
                 <div className="container">
                     <div className="row">
                         <div className="col-6">
@@ -68,7 +75,7 @@ export class Profile extends React.Component {
                                                                (
                                                                    <tr key={city._id}>
                                                                        <td>
-                                                                           <Link to={`/${this.props.match.params.userId}/city/${city._id}`}>
+                                                                           <Link to={`/city/${city._id}`}>
                                                                                {city.name}
                                                                            </Link>
                                                                        </td>
@@ -93,6 +100,7 @@ export class Profile extends React.Component {
 }
 
 const stateToPropertyMapper = (state) => ({
+    userDetails: state.userReducer.userDetails,
     userCities: state.cityReducer.userCities,
     userTrips: state.tripReducer.userTrips
 });

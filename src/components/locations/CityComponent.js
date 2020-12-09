@@ -69,7 +69,7 @@ class City extends React.Component {
                                                            (
                                                                <tr>
                                                                    <td>
-                                                                       <Link to={`/user/city/${this.props.city.id}/place/${place.id}`}>
+                                                                       <Link to={`/city/${this.props.city.id}/place/${place.id}`}>
                                                                            {place.name}
                                                                        </Link>
                                                                    </td>

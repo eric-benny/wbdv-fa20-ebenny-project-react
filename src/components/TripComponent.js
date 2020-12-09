@@ -106,7 +106,7 @@ class Trip extends React.Component {
                                                             (
                                                                 <tr>
                                                                     <td>
-                                                                        <Link to={`/user/city/${city._id}`}>
+                                                                        <Link to={`/city/${city._id}`}>
                                                                             {city.name}
                                                                         </Link>
                                                                     </td>
@@ -164,7 +164,7 @@ class Trip extends React.Component {
 
 const stateToPropertyMapper = (state) => ({
     trip: state.tripReducer.selectedTrip,
-    cityPlaces: state.placeReducer.citiesForCity
+    cityPlaces: state.placeReducer.placesForCity
 });
 
 const propertyToDispatchMapper = (dispatch) => ({

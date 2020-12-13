@@ -5,12 +5,20 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import {Link} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCheck} from "@fortawesome/free-solid-svg-icons";
-import {addCity, fetchCitiesForUser} from "../actions/locations/cityActions";
+import {faCheck, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {addCity, deleteCity, fetchCitiesForUser} from "../actions/locations/cityActions";
 import {connect} from "react-redux";
-import {fetchTripsForUser} from "../actions/tripActions";
+import {deleteTrip, fetchTripsForUser} from "../actions/tripActions";
 
 export class Profile extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            editing: false
+        }
+    }
 
     componentDidMount() {
         this.props.fetchCitiesForUser(this.props.userDetails._id);
@@ -26,18 +34,33 @@ export class Profile extends React.Component {
         }
     }
 
+    edit = () => {
+        this.setState(prevState => {
+            return (
+                {
+                    ...prevState,
+                    editing: !prevState.editing
+                }
+            )})
+    }
+
     render() {
         return (
             <div>
+                {this.state.editing ?
+                 <Button variant="outline-info" onClick={this.edit}>Done</Button>:
+                 <Button variant="outline-info" onClick={this.edit}>Edit</Button>}
                 <div className="container">
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-sm-6">
                             <h2>Trips</h2>
                             <Table striped bordered hover>
                                 <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Start Date</th>
+                                    {this.state.editing &&
+                                     <th>Delete</th>}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -52,6 +75,12 @@ export class Profile extends React.Component {
                                                                           </Link>
                                                                       </td>
                                                                       <td>{date.getFullYear()}-{date.getMonth() + 1}-{date.getUTCDate()}</td>
+                                                                      {this.state.editing &&
+                                                                       <td>
+                                                                           <Button className="table_delete" variant="danger" onClick={() => this.props.deleteTrip(trip._id)}>
+                                                                               <FontAwesomeIcon icon={faTrash}/>
+                                                                           </Button>
+                                                                       </td>}
                                                                   </tr>
                                                               )
                                                           }
@@ -59,7 +88,7 @@ export class Profile extends React.Component {
                                 </tbody>
                             </Table>
                         </div>
-                        <div className="col-6">
+                        <div className="col-sm-6">
                             <h2>Cities</h2>
                             <Table striped bordered hover>
                                 <thead>
@@ -68,6 +97,8 @@ export class Profile extends React.Component {
                                     <th>Country</th>
                                     <th>State/Province</th>
                                     <th>Visited</th>
+                                    {this.state.editing &&
+                                    <th>Delete</th>}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -82,9 +113,17 @@ export class Profile extends React.Component {
                                                                        <td>{city.country}</td>
                                                                        <td>{city.state}</td>
                                                                        <td>
-                                                                           <FontAwesomeIcon
-                                                                               icon={faCheck}/>
+                                                                           {city.date_visited &&
+                                                                            <FontAwesomeIcon
+                                                                                icon={faCheck}/>}
+
                                                                        </td>
+                                                                       {this.state.editing &&
+                                                                        <td>
+                                                                            <Button className="table_delete" variant="danger" onClick={() => this.props.deleteCity(city._id)}>
+                                                                                <FontAwesomeIcon icon={faTrash}/>
+                                                                            </Button>
+                                                                        </td>}
                                                                    </tr>
                                                                )
                                 )}
@@ -108,7 +147,9 @@ const stateToPropertyMapper = (state) => ({
 const propertyToDispatchMapper = (dispatch) => ({
     fetchCitiesForUser: (uid) => fetchCitiesForUser(dispatch, uid),
     fetchTripsForUser: (uid) => fetchTripsForUser(dispatch, uid),
-    addCity: (city) => addCity(dispatch, city)
+    addCity: (city) => addCity(dispatch, city),
+    deleteCity: (cid) => deleteCity(dispatch, cid),
+    deleteTrip: (tid) => deleteTrip(dispatch, tid)
 });
 
 

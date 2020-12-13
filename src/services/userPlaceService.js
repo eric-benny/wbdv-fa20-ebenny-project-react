@@ -41,9 +41,31 @@ export const createPlace = (uid, cid, place) => {
         .then(response => response.json())
 }
 
+export const deletePlace = (pid) => {
+    return fetch(`${placeUrl}/${pid}`, {
+        method: 'DELETE',
+        credentials: 'include'
+    })
+        .then(response => {
+            return response.json()
+        })
+};
+
+export const updatePlace = (pid, newPlace) =>
+    fetch(`${placeUrl}/${pid}`, {
+        method: "PUT",
+        body: JSON.stringify(newPlace),
+        headers: {
+            "content-type": "application/json"
+        }
+    })
+        .then(response => response.json());
+
 export default {
     fetchPlacesForUser,
     fetchPlaceById,
     createPlace,
-    fetchPlacesForCity
+    fetchPlacesForCity,
+    deletePlace,
+    updatePlace
 }

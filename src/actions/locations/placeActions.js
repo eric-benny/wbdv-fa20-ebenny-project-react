@@ -1,12 +1,17 @@
 import userPlaceService from "../../services/userPlaceService";
 import placeService from "../../services/placeService"
+import userCityService from "../../services/userCityService";
+import {SAVE_CITY, UPDATE_CITY} from "./cityActions";
 
 export const FIND_PLACES_FOR_CITY = 'FIND_PLACES_FOR_CITY';
 export const FETCH_PLACE = 'FETCH_PLACE';
 export const FETCH_PLACE_INFO = 'FETCH_PLACE_INFO';
 export const ADD_PLACE = 'ADD_PLACE';
 export const FETCH_PLACES_FOR_USER = 'FETCH_PLACES_FOR_USER';
-export const CLEAR_PLACES_FOR_USER = 'CLEAR_PLACES_FOR_USER'
+export const CLEAR_PLACES_FOR_USER = 'CLEAR_PLACES_FOR_USER';
+export const DELETE_PLACE = 'DELETE_PLACE';
+export const UPDATE_PLACE = 'UPDATE_PLACE';
+export const SAVE_PLACE = 'SAVE_PLACE';
 
 export const fetchPlacesForCity = (dispatch, cityId) => {
     userPlaceService.fetchPlacesForCity(cityId)
@@ -37,4 +42,18 @@ export const fetchPlacesForUser = (dispatch, uid) =>
 
 export const clearPlacesForUser = (dispatch) => {
     dispatch({ type: CLEAR_PLACES_FOR_USER })
+}
+
+export const deletePlace = (dispatch, pid) => {
+    userPlaceService.deletePlace(pid)
+        .then(response => dispatch({ type: DELETE_PLACE, response, pid}))
+}
+
+export const updatePlace = (dispatch, place) => {
+    dispatch({type: UPDATE_PLACE, place})
+};
+
+export const savePlace = (dispatch, pid, place) => {
+    userPlaceService.updatePlace(pid, place)
+        .then(response => dispatch({type: SAVE_PLACE, response}))
 }

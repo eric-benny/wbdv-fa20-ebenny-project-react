@@ -3,12 +3,12 @@ import userTripService from "../services/userTripService";
 export const FETCH_TRIP = 'FETCH_TRIP';
 export const FETCH_TRIPS_FOR_USER = 'FETCH_TRIPS_FOR_USER';
 export const CLEAR_TRIPS_FOR_USER = 'CLEAR_TRIPS_FOR_USER';
+export const DELETE_TRIP = 'DELETE_TRIP';
 
 export const fetchTrip = (dispatch, tripId) => {
     userTripService.fetchTripById(tripId)
         .then(trip => dispatch({ type: FETCH_TRIP, trip }));
 }
-
 
 export const fetchTripsForUser = (dispatch, uid) =>
     userTripService.fetchTripsForUser(uid)
@@ -16,3 +16,8 @@ export const fetchTripsForUser = (dispatch, uid) =>
 
 export const clearTripsForUser = (dispatch) =>
     dispatch({ type: CLEAR_TRIPS_FOR_USER })
+
+export const deleteTrip = (dispatch, tid) => {
+    userTripService.deleteTrip(tid)
+        .then(response => dispatch({ type: DELETE_TRIP, response, tid}))
+}

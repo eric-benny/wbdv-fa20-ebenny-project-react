@@ -1,7 +1,6 @@
 import {InputGroup, FormControl} from 'react-bootstrap'
 import React from "react";
-import Header from "../HeaderComponent";
-import {fetchCity} from "../../actions/locations/cityActions";
+import {fetchCity, saveCity, updateCity} from "../../actions/locations/cityActions";
 import {fetchPlacesForCity} from "../../actions/locations/placeActions";
 import {connect} from "react-redux";
 import Table from "react-bootstrap/Table";
@@ -15,10 +14,60 @@ import Button from "react-bootstrap/Button";
 
 class City extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            editing: false
+        }
+    }
+
     componentDidMount() {
         const cityId = this.props.match.params.cityId;
         this.props.fetchCity(cityId);
         this.props.fetchPlacesForCity(cityId);
+    }
+
+    edit = () => {
+        this.setState(prevState => {
+            return (
+                {
+                    ...prevState,
+                    editing: !prevState.editing
+                }
+            )})
+    }
+
+    updateCityNotes = (city, event) => {
+        this.props.updateCity({...city, notes: event.target.value})
+    }
+
+    updateCityLastVisited = (city, event) => {
+        this.props.updateCity({...city, lastVisited: event.target.value})
+    }
+
+    saveEdit = (cid, city) => {
+        this.edit()
+        this.props.saveCity(cid, city)
+    }
+
+    convertISODate = (isoDate) => {
+        if (isoDate === null) {
+            return isoDate
+        } else {
+            const date = new Date(isoDate);
+            const year = date.getFullYear();
+            let month = date.getMonth()+1;
+            let dt = date.getDate()+1;
+
+            if (dt < 10) {
+                dt = '0' + dt;
+            }
+            if (month < 10) {
+                month = '0' + month;
+            }
+            return year + '-' + month + '-' + dt;
+        }
     }
 
     render() {
@@ -26,14 +75,22 @@ class City extends React.Component {
             <div>
                 <Navbar bg="light" variant="light">
                     <Nav className="mr-auto">
-                        <LinkContainer to={this.props.match.params.tripId ? `/${this.props.match.params.component}/${this.props.match.params.tripId}`: `/${this.props.match.params.component}`}>
+                        <LinkContainer to={this.props.match.params.tripId ?
+                                           `/${this.props.match.params.component}/${this.props.match.params.tripId}`:
+                                           `/${this.props.match.params.component}`}>
                             <Nav.Link>
                                 <FontAwesomeIcon icon={faTimes}/>
                             </Nav.Link>
                         </LinkContainer>
                         <Navbar.Brand>{this.props.city.name}</Navbar.Brand>
                     </Nav>
-                    <Button variant="outline-info">Edit</Button>
+                    {this.state.editing ?
+                     <Button variant="outline-info" onClick={() => this.saveEdit(this.props.city._id, this.props.city)}>
+                         Save
+                     </Button>:
+                     <Button variant="outline-info" onClick={this.edit}>
+                         Edit
+                     </Button>}
                 </Navbar>
                 <div className="container">
                     <div className="row">
@@ -61,12 +118,29 @@ class City extends React.Component {
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>Last Visited</InputGroup.Text>
                                 </InputGroup.Prepend>
-                                <FormControl readOnly value="10/15/2015"/>
+                                {this.state.editing ?
+                                 <FormControl type="date"
+                                              onChange={(e) => this.updateCityLastVisited(this.props.city, e)}
+                                              value={this.convertISODate(this.props.city.lastVisited) === null ?
+                                                     undefined:
+                                                     this.convertISODate(this.props.city.lastVisited)}/>:
+                                 <FormControl type="date"
+                                              readOnly
+                                              value={this.convertISODate(this.props.city.lastVisited) === null ?
+                                                     undefined:
+                                                     this.convertISODate(this.props.city.lastVisited)}/>}
                             </InputGroup>
                         </div>
                         <div className="col-6">
                             <h2>Notes</h2>
-                            <p>{this.props.city.notes}</p>
+                            {this.state.editing ?
+                             <textarea className="form-control"
+                                       value={this.props.city.notes === null ?
+                                              undefined:
+                                              this.props.city.notes}
+                                       placeholder="Notes..."
+                                       onChange={(e) => this.updateCityNotes(this.props.city, e)}/>:
+                             <p>{this.props.city.notes}</p>}
                         </div>
                     </div>
                     <div className="row">
@@ -109,7 +183,9 @@ const stateToPropertyMapper = (state) => ({
 
 const propertyToDispatchMapper = (dispatch) => ({
     fetchCity: (cityId) => fetchCity(dispatch, cityId),
-    fetchPlacesForCity: (cityId) => fetchPlacesForCity(dispatch, cityId)
+    fetchPlacesForCity: (cityId) => fetchPlacesForCity(dispatch, cityId),
+    updateCity: (city) => updateCity(dispatch, city),
+    saveCity: (cid, city) => saveCity(dispatch, cid, city)
 });
 
 export default connect

@@ -31,8 +31,30 @@ export const createCity = (uid, city) => {
         .then(response => response.json())
 }
 
+export const deleteCity = (cid) => {
+    return fetch(`${cityUrl}/${cid}`, {
+        method: 'DELETE',
+        credentials: 'include'
+    })
+        .then(response => {
+            return response.json()
+        })
+};
+
+export const updateCity = (cid, newCity) =>
+    fetch(`${cityUrl}/${cid}`, {
+        method: "PUT",
+        body: JSON.stringify(newCity),
+        headers: {
+            "content-type": "application/json"
+        }
+    })
+        .then(response => response.json());
+
 export default {
     fetchCitiesForUser,
     fetchCityById,
-    createCity
+    createCity,
+    deleteCity,
+    updateCity
 }

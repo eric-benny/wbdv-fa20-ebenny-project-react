@@ -1,4 +1,10 @@
-import {FETCH_TRIP, FETCH_TRIPS_FOR_USER, CLEAR_TRIPS_FOR_USER} from "../actions/tripActions";
+import {
+    FETCH_TRIP,
+    FETCH_TRIPS_FOR_USER,
+    CLEAR_TRIPS_FOR_USER,
+    DELETE_TRIP
+} from "../actions/tripActions";
+import {DELETE_PLACE} from "../actions/locations/placeActions";
 
 const initialState = {
     userTrips: [],
@@ -22,6 +28,11 @@ const tripReducer = (state=initialState, action) => {
                 ...state,
                 userTrips: []
             }
+        case DELETE_TRIP:
+            return {
+                ...state,
+                userTrips: state.userTrips.filter(trip => trip._id !== action.tid)
+            };
         default:
             return state
     }

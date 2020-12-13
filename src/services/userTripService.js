@@ -20,5 +20,15 @@ export const fetchTripById = (tid) => {
         })
 };
 
+export const deleteTrip = (tid) => {
+    return fetch(`${tripUrl}/${tid}`, {
+        method: 'DELETE',
+        credentials: 'include'
+    })
+        .then(response => {
+            return response.json()
+        })
+};
 
-export default { fetchTripsForUser, fetchTripById }
+
+export default { fetchTripsForUser, fetchTripById, deleteTrip }

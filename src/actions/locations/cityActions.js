@@ -7,6 +7,9 @@ export const FETCH_CITY_INFO = 'FETCH_CITY_INFO';
 export const FIND_CITIES_FOR_TRIP = 'FIND_CITIES_FOR_TRIP';
 export const FETCH_CITIES_FOR_USER = 'FETCH_CITIES_FOR_USER';
 export const CLEAR_CITIES_FOR_USER = 'CLEAR_CITIES_FOR_USER';
+export const DELETE_CITY = 'DELETE_CITY';
+export const UPDATE_CITY = 'UPDATE_CITY';
+export const SAVE_CITY = 'SAVE_CITY';
 
 export const addCity = (dispatch, uid, city) => {
     userCityService.createCity(uid, city)
@@ -34,3 +37,16 @@ export const clearCitiesForUser = (dispatch) => {
     dispatch({ type: CLEAR_CITIES_FOR_USER })
 }
 
+export const deleteCity = (dispatch, cid) => {
+    userCityService.deleteCity(cid)
+        .then(response => dispatch({ type: DELETE_CITY, response, cid}))
+}
+
+export const updateCity = (dispatch, city) => {
+    dispatch({type: UPDATE_CITY, city})
+};
+
+export const saveCity = (dispatch, cid, city) => {
+    userCityService.updateCity(cid, city)
+        .then(response => dispatch({type: SAVE_CITY, response}))
+}

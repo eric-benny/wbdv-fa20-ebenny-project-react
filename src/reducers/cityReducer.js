@@ -3,7 +3,7 @@ import {
     FETCH_CITIES_FOR_USER,
     FETCH_CITY, FETCH_CITY_INFO,
     FIND_CITIES_FOR_TRIP,
-    CLEAR_CITIES_FOR_USER
+    CLEAR_CITIES_FOR_USER, DELETE_CITY, UPDATE_CITY
 } from "../actions/locations/cityActions";
 
 const tempCitiesForTrip = [
@@ -52,6 +52,16 @@ const cityReducer = (state=initialState, action) => {
                 ...state,
                 userCities: []
             }
+        case DELETE_CITY:
+            return {
+                ...state,
+                userCities: state.userCities.filter(city => city._id !== action.cid)
+            };
+        case UPDATE_CITY:
+            return {
+                ...state,
+                selectedCity: action.city
+            };
         default:
             return state
     }

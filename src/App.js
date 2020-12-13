@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './css/tableStyles.css'
 import {BrowserRouter, Route} from "react-router-dom";
 import Homepage from "./components/HomepageConmponent";
 import {Provider} from "react-redux";

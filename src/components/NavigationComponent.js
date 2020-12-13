@@ -8,6 +8,9 @@ import {clearTripsForUser, fetchTripsForUser} from "../actions/tripActions";
 import {connect} from "react-redux";
 import {Profile} from "./ProfileComponent";
 import {fetchActiveUser, logoutUser} from "../actions/userActions";
+import {clearPlacesForUser} from "../actions/locations/placeActions";
+import {clearCityResults, updateSearchCity} from "../actions/search/citySearchActions";
+import {clearPlaceResults, updateSearchPlace} from "../actions/search/placeSearchActions";
 
 
 
@@ -22,6 +25,11 @@ class Navigation extends React.Component {
         this.props.logoutUser()
         this.props.clearCitiesForUser()
         this.props.clearTripsForUser()
+        this.props.clearPlacesForUser()
+        this.props.clearCityResults()
+        this.props.clearPlaceResults()
+        this.props.updateSearchCity('')
+        this.props.updateSearchPlace('')
     }
 
     render() {
@@ -43,7 +51,7 @@ class Navigation extends React.Component {
                     </LinkContainer>
                 </Nav>
                 <Nav className="mr-auto">
-                    <LinkContainer to="/search">
+                    <LinkContainer to="/search/city">
                         <Nav.Link>
                             Search
                         </Nav.Link>
@@ -86,7 +94,12 @@ const propertyToDispatchMapper = (dispatch) => ({
     fetchActiveUser: () => fetchActiveUser(dispatch),
     logoutUser: () => logoutUser(dispatch),
     clearCitiesForUser: () => clearCitiesForUser(dispatch),
-    clearTripsForUser: () => clearTripsForUser(dispatch)
+    clearTripsForUser: () => clearTripsForUser(dispatch),
+    clearPlacesForUser: () => clearPlacesForUser(dispatch),
+    clearCityResults: () => clearCityResults(dispatch),
+    clearPlaceResults: () => clearPlaceResults(dispatch),
+    updateSearchCity: (city) => updateSearchCity(dispatch, city),
+    updateSearchPlace: (place) => updateSearchPlace(dispatch,place)
 });
 
 

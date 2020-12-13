@@ -14,7 +14,7 @@ export const fetchCities = (city) => {
 };
 
 export const fetchCity = (geonameID) => {
-    return fetch(`http://api.geonames.org/get?geonameId=${geonameID}&username=bennye`)
+    return fetch(`http://api.geonames.org/getJSON?geonameId=${geonameID}&username=bennye&style=json`)
         .then(response => {
             return response.json()
         })

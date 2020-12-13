@@ -7,7 +7,11 @@ import {connect} from "react-redux";
 import Table from "react-bootstrap/Table";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
+import Nav from "react-bootstrap/Nav";
+import {LinkContainer} from "react-router-bootstrap";
+import Navbar from "react-bootstrap/Navbar";
+import Button from "react-bootstrap/Button";
 
 class City extends React.Component {
 
@@ -20,7 +24,17 @@ class City extends React.Component {
     render() {
         return (
             <div>
-                <Header title={this.props.city.name}/>
+                <Navbar bg="light" variant="light">
+                    <Nav className="mr-auto">
+                        <LinkContainer to={this.props.match.params.tripId ? `/${this.props.match.params.component}/${this.props.match.params.tripId}`: `/${this.props.match.params.component}`}>
+                            <Nav.Link>
+                                <FontAwesomeIcon icon={faTimes}/>
+                            </Nav.Link>
+                        </LinkContainer>
+                        <Navbar.Brand>{this.props.city.name}</Navbar.Brand>
+                    </Nav>
+                    <Button variant="outline-info">Edit</Button>
+                </Navbar>
                 <div className="container">
                     <div className="row">
                         <div className="col-6">
@@ -61,19 +75,19 @@ class City extends React.Component {
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Address</th>
+                                <th>Details</th>
                             </tr>
                             </thead>
                             <tbody>
                             {this.props.cityPlaces.map(place =>
                                                            (
-                                                               <tr>
+                                                               <tr key={place._id}>
                                                                    <td>
-                                                                       <Link to={`/city/${this.props.city.id}/place/${place.id}`}>
+                                                                       <Link to={`/${this.props.match.params.component}/city/${this.props.city._id}/place/${place._id}`}>
                                                                            {place.name}
                                                                        </Link>
                                                                    </td>
-                                                                   <td>{place.address}</td>
+                                                                   <td>{place.details}</td>
                                                                </tr>
                                                            )
                             )}

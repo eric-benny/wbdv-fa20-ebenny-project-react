@@ -2,7 +2,7 @@ import Navigation from "./NavigationComponent";
 import Table from "react-bootstrap/Table";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faPlus, faTimes} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import Header from "./HeaderComponent";
 import Nav from "react-bootstrap/Nav";
@@ -12,6 +12,9 @@ import {fetchCitiesForTrip} from "../actions/locations/cityActions";
 import {fetchPlacesForCity} from "../actions/locations/placeActions";
 import {connect} from "react-redux";
 import {fetchTrip} from "../actions/tripActions";
+import Navbar from "react-bootstrap/Navbar";
+import {LinkContainer} from "react-router-bootstrap";
+import Button from "react-bootstrap/Button";
 
 class Trip extends React.Component {
 
@@ -55,23 +58,33 @@ class Trip extends React.Component {
     render() {
         return (
             <div>
-                <Header title={this.props.trip.name}/>
+                <Navbar bg="light" variant="light">
+                    <Nav className="mr-auto">
+                        <LinkContainer to={`/profile`}>
+                            <Nav.Link>
+                                <FontAwesomeIcon icon={faTimes}/>
+                            </Nav.Link>
+                        </LinkContainer>
+                        <Navbar.Brand>{this.props.trip.name}</Navbar.Brand>
+                    </Nav>
+                    <Button variant="outline-info">Edit</Button>
+                </Navbar>
                 <div className="container">
                     <div className="row mt-2">
                         <Nav variant="tabs" defaultActiveKey="itinerary"
                              onSelect={this.handleSelect}>
                             <Nav.Item>
-                                <Nav.Link to={`/user/trip/${this.props.trip.id}/itinerary`} eventKey="itinerary">
+                                <Nav.Link to={`/trip/${this.props.trip._id}/itinerary`} eventKey="itinerary">
                                     Itinerary
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="cities">
+                                <Nav.Link to={`/trip/${this.props.trip._id}/cities`} eventKey="cities">
                                     Cities
                                 </Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
-                                <Nav.Link eventKey="log">
+                                <Nav.Link to={`/trip/${this.props.trip._id}/log`} eventKey="log">
                                     Travel Log
                                 </Nav.Link>
                             </Nav.Item>
@@ -106,7 +119,7 @@ class Trip extends React.Component {
                                                             (
                                                                 <tr>
                                                                     <td>
-                                                                        <Link to={`/city/${city._id}`}>
+                                                                        <Link to={`/trip/${this.props.trip._id}/city/${city._id}`}>
                                                                             {city.name}
                                                                         </Link>
                                                                     </td>

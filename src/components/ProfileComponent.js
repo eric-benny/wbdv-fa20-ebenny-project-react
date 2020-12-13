@@ -47,7 +47,7 @@ export class Profile extends React.Component {
                                                                   <tr key={trip._id}>
                                                                       <td>
                                                                           <Link
-                                                                              to={`/${this.props.match.params.userId}/trip/${trip._id}`}>
+                                                                              to={`/trip/${trip._id}`}>
                                                                               {trip.name}
                                                                           </Link>
                                                                       </td>
@@ -75,7 +75,7 @@ export class Profile extends React.Component {
                                                                (
                                                                    <tr key={city._id}>
                                                                        <td>
-                                                                           <Link to={`/city/${city._id}`}>
+                                                                           <Link to={`/profile/city/${city._id}`}>
                                                                                {city.name}
                                                                            </Link>
                                                                        </td>

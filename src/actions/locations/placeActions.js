@@ -1,10 +1,40 @@
+import userPlaceService from "../../services/userPlaceService";
+import placeService from "../../services/placeService"
+
 export const FIND_PLACES_FOR_CITY = 'FIND_PLACES_FOR_CITY';
 export const FETCH_PLACE = 'FETCH_PLACE';
+export const FETCH_PLACE_INFO = 'FETCH_PLACE_INFO';
+export const ADD_PLACE = 'ADD_PLACE';
+export const FETCH_PLACES_FOR_USER = 'FETCH_PLACES_FOR_USER';
+export const CLEAR_PLACES_FOR_USER = 'CLEAR_PLACES_FOR_USER'
 
 export const fetchPlacesForCity = (dispatch, cityId) => {
-    dispatch({type: FIND_PLACES_FOR_CITY, cityId})
+    userPlaceService.fetchPlacesForCity(cityId)
+        .then(places => dispatch({type: FIND_PLACES_FOR_CITY, places}))
 }
 
 export const fetchPlace = (dispatch, placeId) => {
-    dispatch({type: FETCH_PLACE, placeId})
+    userPlaceService.fetchPlaceById(placeId)
+        .then(place => {
+            // placeService.fetchPlace(place.infoId)
+            //     .then(placeInfo => dispatch({type: FETCH_PLACE_INFO, placeInfo}));
+            dispatch({type: FETCH_PLACE, place})
+        })
+}
+
+export const addPlace = (dispatch, uid, cid, place) => {
+    if (!cid || cid === '') {
+        alert("Choose a city from the dropdown to add the place to")
+    } else {
+        userPlaceService.createPlace(uid, cid, place)
+            .then(newPlace => dispatch({type: ADD_PLACE, newPlace}))
+    }
+};
+
+export const fetchPlacesForUser = (dispatch, uid) =>
+    userPlaceService.fetchPlacesForUser(uid)
+        .then(places => dispatch({type: FETCH_PLACES_FOR_USER, places}))
+
+export const clearPlacesForUser = (dispatch) => {
+    dispatch({ type: CLEAR_PLACES_FOR_USER })
 }

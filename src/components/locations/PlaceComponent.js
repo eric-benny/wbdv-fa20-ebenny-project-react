@@ -13,7 +13,7 @@ import Button from "react-bootstrap/Button";
 export class Place extends React.Component {
 
     componentDidMount() {
-        const placeId = parseInt(this.props.match.params.placeId);
+        const placeId = this.props.match.params.placeId;
         this.props.fetchPlace(placeId)
     }
 
@@ -22,7 +22,7 @@ export class Place extends React.Component {
             <div>
                 <Navbar bg="light" variant="light">
                     <Nav className="mr-auto">
-                        <LinkContainer to={`/user/city/${this.props.place.cityId}`}>
+                        <LinkContainer to={`/${this.props.match.params.component}/city/${this.props.place.cityId}`}>
                             <Nav.Link>
                                 <FontAwesomeIcon icon={faTimes}/>
                             </Nav.Link>
@@ -45,7 +45,7 @@ export class Place extends React.Component {
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>Address</InputGroup.Text>
                                 </InputGroup.Prepend>
-                                <FormControl readOnly value={this.props.place.address}/>
+                                <FormControl readOnly value={this.props.place.details}/>
                             </InputGroup>
                             <InputGroup className="mb-3">
                                 <InputGroup.Prepend>
@@ -56,7 +56,7 @@ export class Place extends React.Component {
                         </div>
                         <div className="col-6">
                             <h2>Notes</h2>
-                            <p>This is a space to store notes about a place. Things like tip about where and when to go. Things you want to do there. Reminders for when you visit again.</p>
+                            <p>{this.props.place.notes}</p>
                         </div>
                     </div>
                 </div>

@@ -15,7 +15,7 @@ import {
     fetchTripsForUser
 } from "../actions/tripActions";
 
-export class Profile extends React.Component {
+export class ReadOnlyProfile extends React.Component {
 
     constructor(props) {
         super(props);
@@ -26,52 +26,37 @@ export class Profile extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.userDetails._id) {
-            this.props.fetchCitiesForUser(this.props.userDetails._id);
-            this.props.fetchTripsForUser(this.props.userDetails._id);
-            this.props.fetchTripsAttendingForUser(this.props.userDetails._id);
+        if (this.props.match.params.uid) {
+            this.props.fetchCitiesForUser(this.props.match.params.uid);
+            this.props.fetchTripsForUser(this.props.match.params.uid);
+            this.props.fetchTripsAttendingForUser(this.props.match.params.uid);
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.userDetails._id !== this.props.userDetails._id) {
-            if (this.props.userDetails._id) {
-                this.props.fetchCitiesForUser(this.props.userDetails._id);
-                this.props.fetchTripsForUser(this.props.userDetails._id);
-                this.props.fetchTripsAttendingForUser(this.props.userDetails._id);
+        if (prevProps.match.params.uid !== this.props.match.params.uid) {
+            if (this.props.match.params.uid) {
+                this.props.fetchCitiesForUser(this.props.match.params.uid);
+                this.props.fetchTripsForUser(this.props.match.params.uid);
+                this.props.fetchTripsAttendingForUser(this.props.match.params.uid);
             }
         }
-    }
-
-    edit = () => {
-        this.setState(prevState => {
-            return (
-                {
-                    ...prevState,
-                    editing: !prevState.editing
-                }
-            )})
     }
 
     render() {
         return (
             <div>
-                {this.state.editing ?
-                 <Button variant="outline-info" onClick={this.edit}>Done</Button>:
-                 <Button variant="outline-info" onClick={this.edit}>Edit</Button>}
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-6">
                             <div className="container-fluid">
                                 <div className="row">
-                                    <h2>Trips</h2>
+                                    <h2>Trips (Owner)</h2>
                                     <Table striped bordered hover>
                                         <thead>
                                         <tr>
                                             <th>Name</th>
                                             <th>Start Date</th>
-                                            {this.state.editing &&
-                                             <th>Delete</th>}
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -80,30 +65,19 @@ export class Profile extends React.Component {
                                                                       return (
                                                                           <tr key={trip._id}>
                                                                               <td>
-                                                                                  <Link
-                                                                                      to={`/trip/${trip._id}/itinerary`}>
-                                                                                      {trip.name}
-                                                                                  </Link>
+                                                                                  {trip.name}
                                                                               </td>
-                                                                              <td>{date.getFullYear()}-{date.getMonth() + 1}-{date.getUTCDate()}</td>
-                                                                              {this.state.editing &&
-                                                                               <td>
-                                                                                   <Button className="table_delete" variant="danger" onClick={() => this.props.deleteTrip(trip._id)}>
-                                                                                       <FontAwesomeIcon icon={faTrash}/>
-                                                                                   </Button>
-                                                                               </td>}
+                                                                              <td>{date.getFullYear()}-{date.getMonth()
+                                                                                                        + 1}-{date.getUTCDate()}</td>
                                                                           </tr>
                                                                       )
                                                                   }
                                         )}
                                         </tbody>
                                     </Table>
-                                    <Button variant="primary" onClick={() => this.props.createTrip(this.props.userDetails._id)}>
-                                        Add Trip
-                                    </Button>
                                 </div>
                                 <div className="row">
-                                    <h2>Trips</h2>
+                                    <h2>Trips (Attending)</h2>
                                     <Table striped bordered hover>
                                         <thead>
                                         <tr>
@@ -113,19 +87,17 @@ export class Profile extends React.Component {
                                         </thead>
                                         <tbody>
                                         {this.props.userTripsAttending.map(trip => {
-                                                                      const date = new Date(trip.date);
-                                                                      return (
-                                                                          <tr key={trip._id}>
-                                                                              <td>
-                                                                                  <Link
-                                                                                      to={`/trip/${trip._id}/itinerary`}>
-                                                                                      {trip.name}
-                                                                                  </Link>
-                                                                              </td>
-                                                                              <td>{date.getFullYear()}-{date.getMonth() + 1}-{date.getUTCDate()}</td>
-                                                                          </tr>
-                                                                      )
-                                                                  }
+                                                                               const date = new Date(trip.date);
+                                                                               return (
+                                                                                   <tr key={trip._id}>
+                                                                                       <td>
+                                                                                           {trip.name}
+                                                                                       </td>
+                                                                                       <td>{date.getFullYear()}-{date.getMonth()
+                                                                                                                 + 1}-{date.getUTCDate()}</td>
+                                                                                   </tr>
+                                                                               )
+                                                                           }
                                         )}
                                         </tbody>
                                     </Table>
@@ -141,8 +113,6 @@ export class Profile extends React.Component {
                                     <th>Country</th>
                                     <th>State/Province</th>
                                     <th>Visited</th>
-                                    {this.state.editing &&
-                                    <th>Delete</th>}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -150,9 +120,7 @@ export class Profile extends React.Component {
                                                                (
                                                                    <tr key={city._id}>
                                                                        <td>
-                                                                           <Link to={`/profile/city/${city._id}`}>
-                                                                               {city.name}
-                                                                           </Link>
+                                                                           {city.name}
                                                                        </td>
                                                                        <td>{city.country}</td>
                                                                        <td>{city.state}</td>
@@ -162,12 +130,6 @@ export class Profile extends React.Component {
                                                                                 icon={faCheck}/>}
 
                                                                        </td>
-                                                                       {this.state.editing &&
-                                                                        <td>
-                                                                            <Button className="table_delete" variant="danger" onClick={() => this.props.deleteCity(city._id)}>
-                                                                                <FontAwesomeIcon icon={faTrash}/>
-                                                                            </Button>
-                                                                        </td>}
                                                                    </tr>
                                                                )
                                 )}
@@ -192,15 +154,10 @@ const stateToPropertyMapper = (state) => ({
 const propertyToDispatchMapper = (dispatch) => ({
     fetchCitiesForUser: (uid) => fetchCitiesForUser(dispatch, uid),
     fetchTripsForUser: (uid) => fetchTripsForUser(dispatch, uid),
-    fetchTripsAttendingForUser: (uid) => fetchTripsAttendingForUser(dispatch, uid),
-    addCity: (city) => addCity(dispatch, city),
-    deleteCity: (cid) => deleteCity(dispatch, cid),
-    deleteTrip: (tid) => deleteTrip(dispatch, tid),
-    createTrip: (uid) => createTrip(dispatch, uid),
+    fetchTripsAttendingForUser: (uid) => fetchTripsAttendingForUser(dispatch, uid)
 
 });
 
-
 export default connect
 (stateToPropertyMapper, propertyToDispatchMapper)
-(Profile)
+(ReadOnlyProfile)

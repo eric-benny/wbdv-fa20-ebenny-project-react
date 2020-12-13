@@ -50,10 +50,10 @@ class SearchComponent extends React.Component {
         this.props.fetchPlacesForUser(this.props.userDetails._id);
 
         if (query) {
-            if (type === 'city') {
+            if (type === 'citySearch') {
                 this.props.updateSearchCity(query)
                 this.searchForCity(query)
-            } else if (type === 'place') {
+            } else if (type === 'placeSearch') {
                 this.props.updateSearchPlace(query)
                 this.searchForPlace(query)
             }
@@ -73,7 +73,7 @@ class SearchComponent extends React.Component {
         }
 
         if (prevProps.match.params.query !== query) {
-            if (type === 'city') {
+            if (type === 'citySearch') {
                 if (query && prevProps.searchCity !== query) {
                     this.props.updateSearchCity(query)
                     this.searchForCity(query)
@@ -81,7 +81,7 @@ class SearchComponent extends React.Component {
                     this.props.updateSearchCity('')
                     this.props.clearCityResults()
                 }
-            } else if (type === 'place') {
+            } else if (type === 'placeSearch') {
                 if (query && prevProps.searchPlace !== query) {
                     this.props.updateSearchPlace(query)
                     this.searchForPlace(query)
@@ -111,13 +111,13 @@ class SearchComponent extends React.Component {
                     key: eventKey
                 }
             )})
-        if (eventKey === 'city') {
+        if (eventKey === 'citySearch') {
             if (this.props.searchCity && this.props.searchCity !== '') {
                 this.props.history.push(`/search/${eventKey}/${this.props.searchCity}`)
             } else {
                 this.props.history.push(`/search/${eventKey}`)
             }
-        } else if (eventKey === 'place') {
+        } else if (eventKey === 'placeSearch') {
             if (this.props.searchPlace && this.props.searchPlace !== '') {
                 this.props.history.push(`/search/${eventKey}/${this.props.searchPlace}`)
             } else {
@@ -149,22 +149,22 @@ class SearchComponent extends React.Component {
     citySearch = (event) => {
         event.preventDefault();
         if (this.props.searchCity && this.props.searchCity !== '') {
-            this.props.history.push(`/search/city/${this.props.searchCity}`)
+            this.props.history.push(`/search/citySearch/${this.props.searchCity}`)
             this.searchForCity(this.props.searchCity)
         } else {
             this.props.clearCityResults()
-            this.props.history.push(`/search/city`)
+            this.props.history.push(`/search/citySearch`)
         }
     }
 
     placeSearch = (event) => {
         event.preventDefault();
         if (this.props.searchPlace && this.props.searchPlace !== '') {
-            this.props.history.push(`/search/place/${this.props.searchPlace}`)
+            this.props.history.push(`/search/placeSearch/${this.props.searchPlace}`)
             this.searchForPlace(this.props.searchPlace)
         } else {
             this.props.clearPlaceResults()
-            this.props.history.push(`/search/place`)
+            this.props.history.push(`/search/placeSearch`)
         }
     }
 
@@ -194,18 +194,18 @@ class SearchComponent extends React.Component {
                     <Nav variant="tabs" defaultActiveKey={this.state.key}
                          onSelect={this.handleSelect}>
                         <Nav.Item>
-                            <Nav.Link eventKey="city">
+                            <Nav.Link eventKey="citySearch">
                                 City
                             </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="place">
+                            <Nav.Link eventKey="placeSearch">
                                 Place
                             </Nav.Link>
                         </Nav.Item>
                     </Nav>
                 </div>
-                {this.state.key === "city" &&
+                {this.state.key === "citySearch" &&
                  <CitySearchComponent
                      search={this.citySearch}
                      searchCity={this.props.searchCity}
@@ -218,7 +218,7 @@ class SearchComponent extends React.Component {
                      onSelect={this.onCitySelect}
                  />
                 }
-                {this.state.key === "place" &&
+                {this.state.key === "placeSearch" &&
                  <PlaceSearchComponent
                      search={this.placeSearch}
                      searchPlace={this.props.searchPlace}

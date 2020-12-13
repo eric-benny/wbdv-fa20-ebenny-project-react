@@ -59,10 +59,18 @@ export const fetchUser = () => {
         .then(response => response.json())
 };
 
+export const fetchUsers = () => {
+    return fetch(`${userUrl}`, {
+        credentials: 'include'
+    })
+        .then(response => response.json())
+};
+
 
 export default {
     loginUser,
     registerUser,
     logoutUser,
-    fetchUser
+    fetchUser,
+    fetchUsers
 }

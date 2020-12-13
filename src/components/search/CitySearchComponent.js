@@ -101,7 +101,8 @@ const CitySearchComponent = (
                                          <th>{city.population}</th>
                                          <th>{city.state}</th>
                                          <th>
-                                             <Button className={userDetails._id ? "fa fa-plus fa-lg": "fa fa-plus fa-lg disabled"}
+                                             <Button className="fa fa-plus fa-lg"
+                                                     disabled={!userDetails._id}
                                                      onClick={() => addCity(
                                                          userDetails._id,
                                                          city)}/>

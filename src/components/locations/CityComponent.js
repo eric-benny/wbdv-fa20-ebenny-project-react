@@ -1,7 +1,11 @@
 import {InputGroup, FormControl} from 'react-bootstrap'
 import React from "react";
 import {fetchCity, saveCity, updateCity} from "../../actions/locations/cityActions";
-import {fetchPlacesForCity} from "../../actions/locations/placeActions";
+import {
+    clearPlacesForCity,
+    clearPlacesForUser,
+    fetchPlacesForCity
+} from "../../actions/locations/placeActions";
 import {connect} from "react-redux";
 import Table from "react-bootstrap/Table";
 import {Link} from "react-router-dom";
@@ -26,6 +30,10 @@ class City extends React.Component {
         const cityId = this.props.match.params.cityId;
         this.props.fetchCity(cityId);
         this.props.fetchPlacesForCity(cityId);
+    }
+
+    componentWillUnmount() {
+        this.props.clearPlacesForCity()
     }
 
     edit = () => {
@@ -185,7 +193,8 @@ const propertyToDispatchMapper = (dispatch) => ({
     fetchCity: (cityId) => fetchCity(dispatch, cityId),
     fetchPlacesForCity: (cityId) => fetchPlacesForCity(dispatch, cityId),
     updateCity: (city) => updateCity(dispatch, city),
-    saveCity: (cid, city) => saveCity(dispatch, cid, city)
+    saveCity: (cid, city) => saveCity(dispatch, cid, city),
+    clearPlacesForCity: () => clearPlacesForCity(dispatch)
 });
 
 export default connect

@@ -1,7 +1,8 @@
-import {FETCH_ACTIVE_USER, LOGOUT_USER} from "../actions/userActions";
+import {FETCH_ACTIVE_USER, FETCH_ALL_USERS, LOGOUT_USER} from "../actions/userActions";
 
 const initialState = {
-    userDetails: {}
+    userDetails: {},
+    allUsers: []
 }
 
 const userReducer = (state=initialState, action) => {
@@ -15,6 +16,11 @@ const userReducer = (state=initialState, action) => {
             return {
                 ...state,
                 userDetails: {}
+            }
+        case FETCH_ALL_USERS:
+            return {
+                ...state,
+                allUsers: action.users
             }
         default:
             return state

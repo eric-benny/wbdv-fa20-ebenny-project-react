@@ -61,11 +61,21 @@ export const updatePlace = (pid, newPlace) =>
     })
         .then(response => response.json());
 
+export const addTripToPlace = (pid, tid) =>
+    fetch(`${placeUrl}/${pid}/trips/${tid}`, {
+        method: "PUT",
+        headers: {
+            "content-type": "application/json"
+        }
+    })
+        .then(response => response.json());
+
 export default {
     fetchPlacesForUser,
     fetchPlaceById,
     createPlace,
     fetchPlacesForCity,
     deletePlace,
-    updatePlace
+    updatePlace,
+    addTripToPlace
 }

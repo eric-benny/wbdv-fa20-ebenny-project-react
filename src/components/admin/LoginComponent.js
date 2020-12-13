@@ -59,7 +59,6 @@ class Login extends React.Component {
                                           value={this.state.username}
                                           onChange={this.handleUsernameChange}/>
                         </Form.Group>
-
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password"

@@ -108,7 +108,8 @@ const PlaceSearchComponent = (
                                      <th>{place.type}</th>
                                      <th>{place.details}</th>
                                      <th>
-                                         <Button className={userDetails._id ? "fa fa-plus fa-lg": "fa fa-plus fa-lg disabled"}
+                                         <Button className="fa fa-plus fa-lg"
+                                                 disabled={!userDetails._id}
                                                  onClick={() => addPlace(
                                                      userDetails._id,
                                                      selectedCityId,

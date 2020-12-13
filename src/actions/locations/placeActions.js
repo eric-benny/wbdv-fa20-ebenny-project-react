@@ -4,6 +4,7 @@ import userCityService from "../../services/userCityService";
 import {SAVE_CITY, UPDATE_CITY} from "./cityActions";
 
 export const FIND_PLACES_FOR_CITY = 'FIND_PLACES_FOR_CITY';
+export const CLEAR_PLACES_FOR_CITY = 'CLEAR_PLACES_FOR_CITY';
 export const FETCH_PLACE = 'FETCH_PLACE';
 export const FETCH_PLACE_INFO = 'FETCH_PLACE_INFO';
 export const ADD_PLACE = 'ADD_PLACE';
@@ -12,6 +13,7 @@ export const CLEAR_PLACES_FOR_USER = 'CLEAR_PLACES_FOR_USER';
 export const DELETE_PLACE = 'DELETE_PLACE';
 export const UPDATE_PLACE = 'UPDATE_PLACE';
 export const SAVE_PLACE = 'SAVE_PLACE';
+export const ADD_TRIP_TO_PLACE = 'ADD_TRIP_TO_PLACE';
 
 export const fetchPlacesForCity = (dispatch, cityId) => {
     userPlaceService.fetchPlacesForCity(cityId)
@@ -44,6 +46,10 @@ export const clearPlacesForUser = (dispatch) => {
     dispatch({ type: CLEAR_PLACES_FOR_USER })
 }
 
+export const clearPlacesForCity = (dispatch) => {
+    dispatch({ type: CLEAR_PLACES_FOR_CITY })
+}
+
 export const deletePlace = (dispatch, pid) => {
     userPlaceService.deletePlace(pid)
         .then(response => dispatch({ type: DELETE_PLACE, response, pid}))
@@ -56,4 +62,9 @@ export const updatePlace = (dispatch, place) => {
 export const savePlace = (dispatch, pid, place) => {
     userPlaceService.updatePlace(pid, place)
         .then(response => dispatch({type: SAVE_PLACE, response}))
+}
+
+export const addTripToPlace = (dispatch, pid, tid) => {
+    userPlaceService.addTripToPlace(pid, tid)
+        .then(response => dispatch({type: ADD_TRIP_TO_PLACE, response, pid, tid}))
 }

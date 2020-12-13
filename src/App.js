@@ -14,6 +14,7 @@ import Trip from "./components/TripComponent";
 import Place from "./components/locations/PlaceComponent";
 import City from "./components/locations/CityComponent";
 import Navigation from "./components/NavigationComponent";
+import ReadOnlyProfile from "./components/ReadOnlyProfileComponent";
 
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
@@ -39,10 +40,10 @@ function App() {
                     <Route path={["/profile"]}
                            exact
                            component={Profile}/>
-                    <Route path="/trip/:tripId"
+                    <Route path={["/profile/:uid"]}
                            exact
-                           component={Trip}/>
-                    <Route path="/trip/:tripId/:tab"
+                           component={ReadOnlyProfile}/>
+                    <Route path={["/trip/:tripId","/trip/:tripId/:tab","/trip/:tripId/:tab/:cityId"]}
                            exact
                            component={Trip}/>
                     <Route path="/:component/city/:cityId"

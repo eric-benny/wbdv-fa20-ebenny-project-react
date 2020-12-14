@@ -51,7 +51,7 @@ class Navigation extends React.Component {
                     </LinkContainer>
                 </Nav>
                 <Nav className="mr-auto">
-                    <LinkContainer to="/search/city">
+                    <LinkContainer to="/search/citySearch">
                         <Nav.Link>
                             Search
                         </Nav.Link>

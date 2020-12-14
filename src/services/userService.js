@@ -68,11 +68,22 @@ export const fetchUsers = () => {
         .then(response => response.json())
 };
 
+export const updateUser = (uid, newUser) =>
+    fetch(`${userUrl}/${uid}`, {
+        method: "PUT",
+        body: JSON.stringify(newUser),
+        headers: {
+            "content-type": "application/json"
+        }
+    })
+        .then(response => response.json());
+
 
 export default {
     loginUser,
     registerUser,
     logoutUser,
     fetchUser,
-    fetchUsers
+    fetchUsers,
+    updateUser
 }

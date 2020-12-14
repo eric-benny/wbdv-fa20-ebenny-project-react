@@ -76,21 +76,38 @@ const searchReducer = (state=initialState, action) => {
                         longitude: city.lng,
                         latitude: city.lat,
                         otherName: city.name,
-                        state: city.adminCodes1.ISO3166_2
+                        state: `${city.adminCodes1 ? city.adminCodes1.ISO3166_2: "N/A"}`
                     })
                 )};
         case PLACE_RESULTS:
             return {
                 ...state,
-                placeSearchResults: action.places.map(place => (
-                    {
+                placeSearchResults: action.places.map(place => {
+                    let osm_type = '';
+                    switch (place.osm_type) {
+                        case 'way':
+                            osm_type = 'W';
+                            break;
+                        case 'node':
+                            osm_type = 'N';
+                            break;
+                        case 'relation':
+                            osm_type = 'R';
+                            break;
+                        default:
+                            break;
+                    }
+                    return {
                         id: place.osm_id,
+                        idType: osm_type,
                         name: place.namedetails.name,
                         class: place.class,
                         type: place.type,
-                        details: place.display_name
-                    })
-                )};
+                        details: place.display_name,
+                        icon: place.icon
+                    }
+                })
+                };
         default:
             return state
     }

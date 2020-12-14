@@ -1,19 +1,16 @@
-import Navigation from "./NavigationComponent";
 import Table from "react-bootstrap/Table";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck, faPlus, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {faPlus, faTimes} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import Header from "./HeaderComponent";
 import Nav from "react-bootstrap/Nav";
 import Pagination from "react-bootstrap/Pagination";
 import ListGroup from "react-bootstrap/ListGroup";
-import {fetchCitiesForTrip, fetchCitiesForUser} from "../actions/locations/cityActions";
+import {fetchCitiesForUser} from "../actions/locations/cityActions";
 import {
     addTripToPlace,
     clearPlacesForCity,
-    fetchPlacesForCity,
-    updatePlace
+    fetchPlacesForCity
 } from "../actions/locations/placeActions";
 import {connect} from "react-redux";
 import {
@@ -26,7 +23,6 @@ import {
 import Navbar from "react-bootstrap/Navbar";
 import {LinkContainer} from "react-router-bootstrap";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import {FormControl, InputGroup} from "react-bootstrap";
 import {fetchAllUsers} from "../actions/userActions";
 

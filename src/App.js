@@ -15,6 +15,7 @@ import Place from "./components/locations/PlaceComponent";
 import City from "./components/locations/CityComponent";
 import Navigation from "./components/NavigationComponent";
 import ReadOnlyProfile from "./components/ReadOnlyProfileComponent";
+import UserAdmin from "./components/admin/UserAdminComponent";
 
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
@@ -55,6 +56,9 @@ function App() {
                     <Route path="/:component/city/:cityId/place/:placeId"
                            exact
                            component={Place}/>
+                    <Route path="/admin"
+                           exact
+                           component={UserAdmin}/>
                 </div>
             </BrowserRouter>
         </Provider>

@@ -3,19 +3,10 @@ import Navigation from "../NavigationComponent";
 import '../../css/searchStyle.css'
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import {connect} from "react-redux";
-import {
-    executeCitySearch,
-    updateAutofillCities,
-    updateSearchCity
-} from "../../actions/search/citySearchActions";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Table from "react-bootstrap/Table";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus} from "@fortawesome/free-solid-svg-icons";
-import {addCity, fetchCitiesForUser} from "../../actions/locations/cityActions";
 
 
 const CitySearchComponent = (
@@ -119,23 +110,3 @@ const CitySearchComponent = (
         </div>
 
 export default CitySearchComponent
-// const stateToPropertyMapper = (state) => ({
-//     userDetails: state.userReducer.userDetails,
-//     autofillCities: state.searchReducer.autofillCities,
-//     searchCity: state.searchReducer.searchCity,
-//     searchResults: state.searchReducer.searchResults,
-//     userCities: state.cityReducer.userCities
-// });
-//
-// const propertyToDispatchMapper = (dispatch) => ({
-//     fetchCitiesForUser: (uid) => fetchCitiesForUser(dispatch, uid),
-//     updateAutofillCities: (cityInput) => updateAutofillCities(dispatch, cityInput),
-//     updateSearchCity: (searchCity) => updateSearchCity(dispatch, searchCity),
-//     executeCitySearch: (city) => executeCitySearch(dispatch, city),
-//     addCity: (uid, city) => addCity(dispatch, uid, city)
-// });
-//
-//
-// export default connect
-// (stateToPropertyMapper, propertyToDispatchMapper)
-// (CitySearchComponent)

@@ -4,14 +4,14 @@ import {
     FETCH_PLACES_FOR_USER,
     ADD_PLACE,
     CLEAR_PLACES_FOR_USER,
-    DELETE_PLACE, UPDATE_PLACE, CLEAR_PLACES_FOR_CITY, ADD_TRIP_TO_PLACE
+    DELETE_PLACE, UPDATE_PLACE, CLEAR_PLACES_FOR_CITY, ADD_TRIP_TO_PLACE, FETCH_PLACE_INFO
 } from "../actions/locations/placeActions";
-import {UPDATE_CITY} from "../actions/locations/cityActions";
 
 const initialState = {
     userPlaces: [],
     placesForCity: [],
-    selectedPlace: {}
+    selectedPlace: {},
+    selectedPlaceInfo: {}
 }
 
 const placeReducer = (state=initialState, action) => {
@@ -26,6 +26,11 @@ const placeReducer = (state=initialState, action) => {
                 ...state,
                 selectedPlace: action.place
             }
+        case FETCH_PLACE_INFO:
+            return {
+                ...state,
+                selectedPlaceInfo: action.placeInfo
+            };
         case FETCH_PLACES_FOR_USER:
             return {
                 ...state,

@@ -15,8 +15,8 @@ export const fetchPlaces = (place) => {
         })
 };
 
-export const fetchPlace = (geonameID) => {
-    return fetch(`https://us1.locationiq.com/v1/reverse.php?key=pk.2b6c39d5db0774c80f1a06129ec749a9&lat=-37.870662&lon=144.9803321&format=json`)
+export const fetchPlace = (infoId, infoType) => {
+    return fetch(`https://us1.locationiq.com/v1/reverse.php?key=pk.2b6c39d5db0774c80f1a06129ec749a9&osm_id=${infoId}&osm_type=${infoType}&format=json`)
         .then(response => {
             return response.json()
         })

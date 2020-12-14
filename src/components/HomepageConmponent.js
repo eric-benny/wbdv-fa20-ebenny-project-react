@@ -1,7 +1,5 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navigation from './NavigationComponent'
-
 
 class Homepage extends React.Component {
     render() {

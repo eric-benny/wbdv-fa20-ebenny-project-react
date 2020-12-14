@@ -1,6 +1,5 @@
 import {InputGroup, FormControl} from 'react-bootstrap'
 import React from "react";
-import Header from "../HeaderComponent";
 import {connect} from "react-redux";
 import {fetchPlace, savePlace, updatePlace} from "../../actions/locations/placeActions";
 import Nav from "react-bootstrap/Nav";
@@ -9,7 +8,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
-import {saveCity, updateCity} from "../../actions/locations/cityActions";
 
 export class Place extends React.Component {
 
@@ -80,6 +78,11 @@ export class Place extends React.Component {
                             </Nav.Link>
                         </LinkContainer>
                         <Navbar.Brand>{this.props.place.name}</Navbar.Brand>
+                        {this.props.place.icon &&
+                         <Navbar.Brand>
+                             <img src={this.props.place.icon} alt={this.props.place.name}/>
+                         </Navbar.Brand>
+                        }
                     </Nav>
                     {this.state.editing ?
                      <Button variant="outline-info" onClick={() => this.saveEdit(this.props.place._id, this.props.place)}>
@@ -103,7 +106,7 @@ export class Place extends React.Component {
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>Address</InputGroup.Text>
                                 </InputGroup.Prepend>
-                                <FormControl readOnly value={this.props.place.details}/>
+                                <FormControl readOnly as="textarea" value={this.props.place.details}/>
                             </InputGroup>
                             <InputGroup className="mb-3">
                                 <InputGroup.Prepend>
@@ -145,7 +148,7 @@ const stateToPropertyMapper = (state) => ({
 });
 
 const propertyToDispatchMapper = (dispatch) => ({
-    fetchPlace: (placeId) => fetchPlace(dispatch, placeId),
+    fetchPlace: (placeId, ) => fetchPlace(dispatch, placeId),
     updatePlace: (place) => updatePlace(dispatch, place),
     savePlace: (pid, place) => savePlace(dispatch, pid, place)
 

@@ -3,14 +3,13 @@ import React from "react";
 import {fetchCity, saveCity, updateCity} from "../../actions/locations/cityActions";
 import {
     clearPlacesForCity,
-    clearPlacesForUser,
     fetchPlacesForCity
 } from "../../actions/locations/placeActions";
 import {connect} from "react-redux";
 import Table from "react-bootstrap/Table";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {faTimes} from "@fortawesome/free-solid-svg-icons";
 import Nav from "react-bootstrap/Nav";
 import {LinkContainer} from "react-router-bootstrap";
 import Navbar from "react-bootstrap/Navbar";

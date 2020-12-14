@@ -23,8 +23,8 @@ export const fetchPlacesForCity = (dispatch, cityId) => {
 export const fetchPlace = (dispatch, placeId) => {
     userPlaceService.fetchPlaceById(placeId)
         .then(place => {
-            // placeService.fetchPlace(place.infoId)
-            //     .then(placeInfo => dispatch({type: FETCH_PLACE_INFO, placeInfo}));
+            placeService.fetchPlace(place.infoId, place.infoType)
+                .then(placeInfo => dispatch({type: FETCH_PLACE_INFO, placeInfo}));
             dispatch({type: FETCH_PLACE, place})
         })
 }

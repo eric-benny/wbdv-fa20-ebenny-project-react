@@ -1,29 +1,15 @@
 import React from "react";
-import Navigation from "./NavigationComponent";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import {Link} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCheck, faTrash} from "@fortawesome/free-solid-svg-icons";
-import {addCity, deleteCity, fetchCitiesForUser} from "../actions/locations/cityActions";
+import {faCheck} from "@fortawesome/free-solid-svg-icons";
+import {fetchCitiesForUser} from "../actions/locations/cityActions";
 import {connect} from "react-redux";
 import {
-    createTrip,
-    deleteTrip,
     fetchTripsAttendingForUser,
     fetchTripsForUser
 } from "../actions/tripActions";
 
 export class ReadOnlyProfile extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            editing: false
-        }
-    }
 
     componentDidMount() {
         if (this.props.match.params.uid) {

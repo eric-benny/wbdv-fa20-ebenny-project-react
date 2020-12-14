@@ -12,7 +12,8 @@ class SignUp extends React.Component {
         password: '',
         firstName: '',
         lastName: '',
-        email: ''
+        email: '',
+        admin: false
     }
 
     registerUser = (event) => {
@@ -22,12 +23,14 @@ class SignUp extends React.Component {
             password: this.state.password,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
-            email: this.state.email
+            email: this.state.email,
+            admin: this.state.admin
         }
+        console.log(user)
         userService.registerUser(user)
             .then(response => {
                 if (isNaN(response)) {
-                    this.props.history.push(`/${response._id}/profile`)
+                    this.props.history.push(`/profile`)
                 }
             })
 
@@ -70,6 +73,13 @@ class SignUp extends React.Component {
         this.setState(prevState => ({
             ...prevState,
             password: newPassword
+        }))
+    }
+
+    setAdmin = () => {
+        this.setState(prevState => ({
+            ...prevState,
+            admin: !prevState.admin
         }))
     }
 
@@ -117,9 +127,11 @@ class SignUp extends React.Component {
                                           value={this.state.password}
                                           onChange={this.handlePasswordChange}/>
                         </Form.Group>
-                        {/*<Form.Group controlId="formBasicCheckbox">*/}
-                        {/*    <Form.Check type="checkbox" label="Public" />*/}
-                        {/*</Form.Group>*/}
+                        <Form.Group controlId="formBasicCheckbox">
+                            <Form.Check type="checkbox"
+                                        label="Admin"
+                                        onChange={this.setAdmin}/>
+                        </Form.Group>
                         <Button variant="primary" type="submit">
                             Submit
                         </Button>

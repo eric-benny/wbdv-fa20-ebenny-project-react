@@ -1,8 +1,5 @@
 import React from "react";
-import Navigation from "../NavigationComponent";
 import '../../css/searchStyle.css'
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import {connect} from "react-redux";
 import {
     clearCityResults,
@@ -10,16 +7,8 @@ import {
     updateAutofillCities,
     updateSearchCity
 } from "../../actions/search/citySearchActions";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import ListGroup from "react-bootstrap/ListGroup";
-import Table from "react-bootstrap/Table";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck, faPlus} from "@fortawesome/free-solid-svg-icons";
 import {addCity, fetchCitiesForUser} from "../../actions/locations/cityActions";
 import Nav from "react-bootstrap/Nav";
-import Pagination from "react-bootstrap/Pagination";
-import {Link} from "react-router-dom";
 import CitySearchComponent from "./CitySearchComponent";
 import PlaceSearchComponent from "./PlaceSearchComponent";
 import {

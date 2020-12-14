@@ -1,4 +1,6 @@
-const userUrl = 'http://localhost:3000/api/users';
+import {URL_BASE} from "../resources/constants";
+
+const userUrl = `${URL_BASE}/api/users`;
 
 export const loginUser = (username, password) => {
     return fetch(`${userUrl}/login`, {

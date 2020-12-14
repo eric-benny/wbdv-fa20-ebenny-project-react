@@ -1,5 +1,7 @@
-const cityUrl = 'http://localhost:3000/api/cities';
-const userUrl = 'http://localhost:3000/api/users';
+import {URL_BASE} from "../resources/constants";
+
+const cityUrl = `${URL_BASE}/api/cities`;
+const userUrl = `${URL_BASE}/api/users`;
 
 export const fetchCitiesForUser = (uid) => {
     return fetch(`${userUrl}/${uid}/cities`, {

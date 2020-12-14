@@ -1,6 +1,7 @@
-const tripUrl = 'http://localhost:3000/api/trips';
-const userUrl = 'http://localhost:3000/api/users';
+import {URL_BASE} from "../resources/constants";
 
+const userUrl = `${URL_BASE}/api/users`;
+const tripUrl = `${URL_BASE}/api/trips`;
 
 const fetchTripsForUser = (uid) => {
     return fetch(`${userUrl}/${uid}/trips`, {

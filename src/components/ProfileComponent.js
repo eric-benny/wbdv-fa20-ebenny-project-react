@@ -64,7 +64,7 @@ export class Profile extends React.Component {
                         <div className="col-sm-6">
                             <div className="container-fluid">
                                 <div className="row">
-                                    <h2>Trips</h2>
+                                    <h2>Trips (Owner)</h2>
                                     <Table striped bordered hover>
                                         <thead>
                                         <tr>
@@ -103,7 +103,7 @@ export class Profile extends React.Component {
                                     </Button>
                                 </div>
                                 <div className="row">
-                                    <h2>Trips</h2>
+                                    <h2>Trips (Attending)</h2>
                                     <Table striped bordered hover>
                                         <thead>
                                         <tr>

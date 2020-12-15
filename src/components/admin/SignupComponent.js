@@ -1,8 +1,6 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import {LinkContainer} from "react-router-bootstrap";
-import Navigation from "../NavigationComponent";
 import userService from "../../services/userService";
 
 class SignUp extends React.Component {
@@ -14,7 +12,7 @@ class SignUp extends React.Component {
         lastName: '',
         email: '',
         admin: false
-    }
+    };
 
     registerUser = (event) => {
         event.preventDefault();
@@ -25,8 +23,7 @@ class SignUp extends React.Component {
             lastName: this.state.lastName,
             email: this.state.email,
             admin: this.state.admin
-        }
-        console.log(user)
+        };
         userService.registerUser(user)
             .then(response => {
                 if (isNaN(response)) {
@@ -34,54 +31,54 @@ class SignUp extends React.Component {
                 }
             })
 
-    }
+    };
 
     handleLastNameChange = (event) => {
-        const newLastName = event.target.value
+        const newLastName = event.target.value;
         this.setState(prevState => ({
             ...prevState,
             lastName: newLastName
         }))
-    }
+    };
 
     handleFirstNameChange = (event) => {
-        const newFirstName = event.target.value
+        const newFirstName = event.target.value;
         this.setState(prevState => ({
             ...prevState,
             firstName: newFirstName
         }))
-    }
+    };
 
     handleEmailChange = (event) => {
-        const newEmail = event.target.value
+        const newEmail = event.target.value;
         this.setState(prevState => ({
             ...prevState,
             email: newEmail
         }))
-    }
+    };
 
     handleUsernameChange = (event) => {
-        const newUsername = event.target.value
+        const newUsername = event.target.value;
         this.setState(prevState => ({
             ...prevState,
             username: newUsername
         }))
-    }
+    };
 
     handlePasswordChange = (event) => {
-        const newPassword = event.target.value
+        const newPassword = event.target.value;
         this.setState(prevState => ({
             ...prevState,
             password: newPassword
         }))
-    }
+    };
 
     setAdmin = () => {
         this.setState(prevState => ({
             ...prevState,
             admin: !prevState.admin
         }))
-    }
+    };
 
     render() {
         return (
@@ -141,6 +138,5 @@ class SignUp extends React.Component {
         )
     }
 }
-
 
 export default SignUp

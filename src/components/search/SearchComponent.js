@@ -40,10 +40,10 @@ class SearchComponent extends React.Component {
 
         if (query) {
             if (type === 'citySearch') {
-                this.props.updateSearchCity(query)
+                this.props.updateSearchCity(query);
                 this.searchForCity(query)
             } else if (type === 'placeSearch') {
-                this.props.updateSearchPlace(query)
+                this.props.updateSearchPlace(query);
                 this.searchForPlace(query)
             }
 
@@ -51,7 +51,7 @@ class SearchComponent extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const query = this.props.match.params.query
+        const query = this.props.match.params.query;
         const type = this.props.match.params.type;
 
         if (prevProps.userDetails._id !== this.props.userDetails._id) {
@@ -64,18 +64,18 @@ class SearchComponent extends React.Component {
         if (prevProps.match.params.query !== query) {
             if (type === 'citySearch') {
                 if (query && prevProps.searchCity !== query) {
-                    this.props.updateSearchCity(query)
+                    this.props.updateSearchCity(query);
                     this.searchForCity(query)
                 } else if (!query || query === '') {
-                    this.props.updateSearchCity('')
+                    this.props.updateSearchCity('');
                     this.props.clearCityResults()
                 }
             } else if (type === 'placeSearch') {
                 if (query && prevProps.searchPlace !== query) {
-                    this.props.updateSearchPlace(query)
+                    this.props.updateSearchPlace(query);
                     this.searchForPlace(query)
                 } else if (!query || query === '') {
-                    this.props.updateSearchPlace('')
+                    this.props.updateSearchPlace('');
                     this.props.clearPlaceResults()
                 }
             }
@@ -90,7 +90,7 @@ class SearchComponent extends React.Component {
                     selectedCityId: event.target.value
                 }
             )})
-    }
+    };
 
     handleSelect = (eventKey) => {
         this.setState(prevState => {
@@ -99,7 +99,7 @@ class SearchComponent extends React.Component {
                     ...prevState,
                     key: eventKey
                 }
-            )})
+            )});
         if (eventKey === 'citySearch') {
             if (this.props.searchCity && this.props.searchCity !== '') {
                 this.props.history.push(`/search/${eventKey}/${this.props.searchCity}`)
@@ -113,7 +113,7 @@ class SearchComponent extends React.Component {
                 this.props.history.push(`/search/${eventKey}`)
             }
         }
-    }
+    };
 
     onCityInputChange = (event) => {
         this.props.updateSearchCity(event.target.value);
@@ -138,42 +138,42 @@ class SearchComponent extends React.Component {
     citySearch = (event) => {
         event.preventDefault();
         if (this.props.searchCity && this.props.searchCity !== '') {
-            this.props.history.push(`/search/citySearch/${this.props.searchCity}`)
+            this.props.history.push(`/search/citySearch/${this.props.searchCity}`);
             this.searchForCity(this.props.searchCity)
         } else {
-            this.props.clearCityResults()
+            this.props.clearCityResults();
             this.props.history.push(`/search/citySearch`)
         }
-    }
+    };
 
     placeSearch = (event) => {
         event.preventDefault();
         if (this.props.searchPlace && this.props.searchPlace !== '') {
-            this.props.history.push(`/search/placeSearch/${this.props.searchPlace}`)
+            this.props.history.push(`/search/placeSearch/${this.props.searchPlace}`);
             this.searchForPlace(this.props.searchPlace)
         } else {
-            this.props.clearPlaceResults()
+            this.props.clearPlaceResults();
             this.props.history.push(`/search/placeSearch`)
         }
-    }
+    };
 
     searchForCity = (city) => {
-        this.props.updateAutofillCities('')
+        this.props.updateAutofillCities('');
         if (city && city !== '') {
             this.props.executeCitySearch(city)
         } else {
             this.props.clearCityResults()
         }
-    }
+    };
 
     searchForPlace = (city) => {
-        this.props.updateAutofillPlaces('')
+        this.props.updateAutofillPlaces('');
         if (city && city !== '') {
             this.props.executePlaceSearch(city)
         } else {
             this.props.clearPlaceResults()
         }
-    }
+    };
 
     render() {
 

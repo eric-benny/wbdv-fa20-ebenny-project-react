@@ -1,44 +1,28 @@
 import React from "react";
-import { LinkContainer } from "react-router-bootstrap";
-import Navigation from "../NavigationComponent";
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import userService from "../../services/userService";
 import {fetchActiveUser, fetchAllUsers, saveUser} from "../../actions/userActions";
 import {connect} from "react-redux";
 import Table from "react-bootstrap/Table";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCheck, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faCheck} from "@fortawesome/free-solid-svg-icons";
 
-const loginUser = (event) => {
-    event.preventDefault();
-    userService.loginUser()
-}
 
 class UserAdmin extends React.Component {
 
     state = {
         username: '',
         password: ''
-    }
+    };
 
     componentDidMount() {
         this.props.fetchAllUsers()
     }
 
-    handleAdminChange = (event) => {
-        const newUsername = event.target.value
-        this.setState(prevState => ({
-            ...prevState,
-            username: newUsername
-        }))
-    }
-
     changeUserRole = (user) => {
-        const newUser = {...user, admin: !user.admin}
+        const newUser = {...user, admin: !user.admin};
         this.props.saveUser(user._id, newUser)
-    }
+    };
 
     render() {
         return (

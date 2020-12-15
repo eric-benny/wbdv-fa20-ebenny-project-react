@@ -114,6 +114,6 @@ const PlaceSearchComponent = (
                 }
             </Row>
         </div>
-    </div>
+    </div>;
 
 export default PlaceSearchComponent

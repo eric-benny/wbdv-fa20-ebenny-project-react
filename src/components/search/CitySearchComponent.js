@@ -1,5 +1,4 @@
 import React from "react";
-import Navigation from "../NavigationComponent";
 import '../../css/searchStyle.css'
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -107,6 +106,6 @@ const CitySearchComponent = (
                     }
                 </Row>
             </div>
-        </div>
+        </div>;
 
 export default CitySearchComponent

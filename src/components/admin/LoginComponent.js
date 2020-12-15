@@ -1,23 +1,16 @@
 import React from "react";
-import { LinkContainer } from "react-router-bootstrap";
-import Navigation from "../NavigationComponent";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import userService from "../../services/userService";
 import {fetchActiveUser} from "../../actions/userActions";
 import {connect} from "react-redux";
 
-const loginUser = (event) => {
-    event.preventDefault();
-    userService.loginUser()
-}
-
 class Login extends React.Component {
 
     state = {
         username: '',
         password: ''
-    }
+    };
 
     loginUser = (event) => {
         event.preventDefault();
@@ -29,23 +22,23 @@ class Login extends React.Component {
                 }
             })
 
-    }
+    };
 
     handleUsernameChange = (event) => {
-        const newUsername = event.target.value
+        const newUsername = event.target.value;
         this.setState(prevState => ({
             ...prevState,
             username: newUsername
         }))
-    }
+    };
 
     handlePasswordChange = (event) => {
-        const newPassword = event.target.value
+        const newPassword = event.target.value;
         this.setState(prevState => ({
             ...prevState,
             password: newPassword
         }))
-    }
+    };
 
     render() {
         return (

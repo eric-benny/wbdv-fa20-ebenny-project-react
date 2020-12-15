@@ -39,7 +39,7 @@ class Homepage extends React.Component {
                             topCities: cities
                         }
                     )})
-            })
+            });
 
         userPlaceService.fetchTopPlaces()
             .then(places => {
@@ -50,7 +50,7 @@ class Homepage extends React.Component {
                             topPlaces: places
                         }
                     )})
-            })
+            });
 
         userTripService.fetchRecentTrips()
             .then(trips => {
@@ -66,11 +66,11 @@ class Homepage extends React.Component {
 
     login = () => {
         this.props.history.push("/login")
-    }
+    };
 
     signUp = () => {
         this.props.history.push("/signup")
-    }
+    };
 
     render() {
         return (

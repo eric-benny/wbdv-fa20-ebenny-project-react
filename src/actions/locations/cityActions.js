@@ -23,24 +23,24 @@ export const fetchCity = (dispatch, cityId) => {
                 .then(cityInfo => dispatch({type: FETCH_CITY_INFO, cityInfo}));
             dispatch({type: FETCH_CITY, city})
         })
-}
+};
 
 export const fetchCitiesForTrip = (dispatch, tripId) => {
     dispatch({ type: FIND_CITIES_FOR_TRIP, tripId })
-}
+};
 
 export const fetchCitiesForUser = (dispatch, uid) =>
     userCityService.fetchCitiesForUser(uid)
-        .then(cities => dispatch({type: FETCH_CITIES_FOR_USER, cities}))
+        .then(cities => dispatch({type: FETCH_CITIES_FOR_USER, cities}));
 
 export const clearCitiesForUser = (dispatch) => {
     dispatch({ type: CLEAR_CITIES_FOR_USER })
-}
+};
 
 export const deleteCity = (dispatch, cid) => {
     userCityService.deleteCity(cid)
         .then(response => dispatch({ type: DELETE_CITY, response, cid}))
-}
+};
 
 export const updateCity = (dispatch, city) => {
     dispatch({type: UPDATE_CITY, city})
@@ -49,4 +49,4 @@ export const updateCity = (dispatch, city) => {
 export const saveCity = (dispatch, cid, city) => {
     userCityService.updateCity(cid, city)
         .then(response => dispatch({type: SAVE_CITY, response}))
-}
+};

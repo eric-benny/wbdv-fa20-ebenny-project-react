@@ -32,20 +32,20 @@ export class Place extends React.Component {
                     editing: !prevState.editing
                 }
             )})
-    }
+    };
 
     updatePlaceNotes = (place, event) => {
         this.props.updatePlace({...place, notes: event.target.value})
-    }
+    };
 
     updatePlaceLastVisited = (place, event) => {
         this.props.updatePlace({...place, lastVisited: event.target.value})
-    }
+    };
 
     saveEdit = (pid, place) => {
         this.edit()
         this.props.savePlace(pid, place)
-    }
+    };
 
     convertISODate = (isoDate) => {
         if (isoDate === null) {
@@ -64,7 +64,7 @@ export class Place extends React.Component {
             }
             return year + '-' + month + '-' + dt;
         }
-    }
+    };
 
 
     render() {

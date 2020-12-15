@@ -1,16 +1,10 @@
 import {InputGroup, FormControl} from 'react-bootstrap'
 import React from "react";
 import {connect} from "react-redux";
-import Table from "react-bootstrap/Table";
-import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import Nav from "react-bootstrap/Nav";
-import {LinkContainer} from "react-router-bootstrap";
-import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
-import Pagination from "react-bootstrap/Pagination";
-import ListGroup from "react-bootstrap/ListGroup";
 import {
     addLog,
     deleteLog,
@@ -48,7 +42,7 @@ class Log extends React.Component {
                     selectedLog: this.props.logs.find(log => log._id === eventKey)
                 }
             )})
-    }
+    };
 
     updateLogTitle = (log, event) => {
         this.setState(prevState => {
@@ -57,9 +51,9 @@ class Log extends React.Component {
                     ...prevState,
                     selectedLog: {...log, title: event.target.value}
                 }
-            )})
+            )});
         this.props.updateLog(log._id, {...log, title: event.target.value})
-    }
+    };
 
     updateLogDescription = (log, event) => {
         this.setState(prevState => {
@@ -68,9 +62,9 @@ class Log extends React.Component {
                     ...prevState,
                     selectedLog: {...log, description: event.target.value}
                 }
-            )})
+            )});
         this.props.updateLog(log._id, {...log, description: event.target.value})
-    }
+    };
 
     edit = () => {
         this.setState(prevState => {
@@ -80,10 +74,10 @@ class Log extends React.Component {
                     editing: !prevState.editing
                 }
             )})
-    }
+    };
 
     deleteLog = (logId) => {
-        this.props.deleteLog(logId)
+        this.props.deleteLog(logId);
         if (logId === this.state.selectedLogId) {
             this.setState(prevState => {
                 return (
@@ -94,7 +88,7 @@ class Log extends React.Component {
                     }
                 )});
         }
-    }
+    };
 
     render() {
         return (

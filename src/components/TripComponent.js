@@ -1,10 +1,9 @@
 import Table from "react-bootstrap/Table";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {faTimes} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import Nav from "react-bootstrap/Nav";
-import Pagination from "react-bootstrap/Pagination";
 import ListGroup from "react-bootstrap/ListGroup";
 import {fetchCitiesForUser} from "../actions/locations/cityActions";
 import {

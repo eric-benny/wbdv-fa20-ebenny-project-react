@@ -43,20 +43,20 @@ class City extends React.Component {
                     editing: !prevState.editing
                 }
             )})
-    }
+    };
 
     updateCityNotes = (city, event) => {
         this.props.updateCity({...city, notes: event.target.value})
-    }
+    };
 
     updateCityLastVisited = (city, event) => {
         this.props.updateCity({...city, lastVisited: event.target.value})
-    }
+    };
 
     saveEdit = (cid, city) => {
         this.edit()
         this.props.saveCity(cid, city)
-    }
+    };
 
     convertISODate = (isoDate) => {
         if (isoDate === null) {
@@ -75,7 +75,7 @@ class City extends React.Component {
             }
             return year + '-' + month + '-' + dt;
         }
-    }
+    };
 
     render() {
         return (

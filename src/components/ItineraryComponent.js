@@ -1,16 +1,10 @@
 import {InputGroup, FormControl} from 'react-bootstrap'
 import React from "react";
 import {connect} from "react-redux";
-import Table from "react-bootstrap/Table";
-import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import Nav from "react-bootstrap/Nav";
-import {LinkContainer} from "react-router-bootstrap";
-import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
-import Pagination from "react-bootstrap/Pagination";
-import ListGroup from "react-bootstrap/ListGroup";
 import {
     addActivity,
     deleteActivity,
@@ -48,7 +42,7 @@ class Itinerary extends React.Component {
                     selectedActivity: this.props.activities.find(activity => activity._id === eventKey)
                 }
             )})
-    }
+    };
 
     convertISODate = (isoDate) => {
         if (isoDate === null) {
@@ -67,7 +61,7 @@ class Itinerary extends React.Component {
             }
             return year + '-' + month + '-' + dt;
         }
-    }
+    };
 
     updateActivityTitle = (activity, event) => {
         this.setState(prevState => {
@@ -76,9 +70,9 @@ class Itinerary extends React.Component {
                     ...prevState,
                     selectedActivity: {...activity, title: event.target.value}
                 }
-            )})
+            )});
         this.props.updateActivity(activity._id, {...activity, title: event.target.value})
-    }
+    };
 
     updateActivityDate = (activity, event) => {
         this.setState(prevState => {
@@ -87,9 +81,9 @@ class Itinerary extends React.Component {
                     ...prevState,
                     selectedActivity: {...activity, date: event.target.value}
                 }
-            )})
+            )});
         this.props.updateActivity(activity._id, {...activity, date: event.target.value})
-    }
+    };
 
     updateActivityNotes = (activity, event) => {
         this.setState(prevState => {
@@ -98,9 +92,9 @@ class Itinerary extends React.Component {
                     ...prevState,
                     selectedActivity: {...activity, notes: event.target.value}
                 }
-            )})
+            )});
         this.props.updateActivity(activity._id, {...activity, notes: event.target.value})
-    }
+    };
 
     edit = () => {
         this.setState(prevState => {
@@ -110,10 +104,10 @@ class Itinerary extends React.Component {
                     editing: !prevState.editing
                 }
             )})
-    }
+    };
 
     deleteActivity = (activityId) => {
-        this.props.deleteActivity(activityId)
+        this.props.deleteActivity(activityId);
         if (activityId === this.state.selectedActivityId) {
             this.setState(prevState => {
                 return (
@@ -124,7 +118,7 @@ class Itinerary extends React.Component {
                     }
                 )});
         }
-    }
+    };
 
     render() {
         return (

@@ -3,7 +3,7 @@ import {URL_BASE} from "../resources/constants";
 const cityUrl = `${URL_BASE}/api/cities`;
 const userUrl = `${URL_BASE}/api/users`;
 
-export const fetchCitiesForUser = (uid) => {
+const fetchCitiesForUser = (uid) => {
     return fetch(`${userUrl}/${uid}/cities`, {
         credentials: 'include'
     })
@@ -12,7 +12,7 @@ export const fetchCitiesForUser = (uid) => {
         })
 };
 
-export const fetchCityById = (cid) => {
+const fetchCityById = (cid) => {
     return fetch(`${cityUrl}/${cid}`, {
         credentials: 'include'
     })
@@ -21,7 +21,7 @@ export const fetchCityById = (cid) => {
         })
 };
 
-export const createCity = (uid, city) => {
+const createCity = (uid, city) => {
     return fetch(`${userUrl}/${uid}/cities`, {
         method: 'POST',
         body: JSON.stringify(city),
@@ -33,7 +33,7 @@ export const createCity = (uid, city) => {
         .then(response => response.json())
 }
 
-export const deleteCity = (cid) => {
+const deleteCity = (cid) => {
     return fetch(`${cityUrl}/${cid}`, {
         method: 'DELETE',
         credentials: 'include'
@@ -43,7 +43,7 @@ export const deleteCity = (cid) => {
         })
 };
 
-export const updateCity = (cid, newCity) =>
+const updateCity = (cid, newCity) =>
     fetch(`${cityUrl}/${cid}`, {
         method: "PUT",
         body: JSON.stringify(newCity),

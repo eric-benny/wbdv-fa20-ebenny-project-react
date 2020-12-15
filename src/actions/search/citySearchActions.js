@@ -1,4 +1,4 @@
-import {fetchAutofillCities, fetchCities} from "../../services/cityService";
+import cityService from "../../services/cityService"
 
 export const CITY_AUTOFILL = 'CITY_AUTOFILL';
 export const CLEAR_CITY_AUTOFILL = 'CLEAR_CITY_AUTOFILL';
@@ -11,7 +11,7 @@ export const updateAutofillCities = (dispatch, citySearchField) => {
     if (citySearchField === '') {
         dispatch({type: CLEAR_CITY_AUTOFILL})
     } else if (citySearchField.length >= 3) {
-        fetchAutofillCities(citySearchField)
+        cityService.fetchAutofillCities(citySearchField)
             .then(results => dispatch({type: CITY_AUTOFILL, cities: results.geonames}))
     }
 }
@@ -25,7 +25,7 @@ export const clearCityResults = (dispatch) => {
 }
 
 export const executeCitySearch = (dispatch, city) => {
-    fetchCities(city)
+    cityService.fetchCities(city)
         .then(results => dispatch({type: CITY_RESULTS, cities: results.geonames}))
 }
 

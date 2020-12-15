@@ -5,7 +5,7 @@ const userUrl = `${URL_BASE}/api/users`;
 const placeUrl = `${URL_BASE}/api/places`;
 
 
-export const fetchPlacesForUser = (uid) => {
+const fetchPlacesForUser = (uid) => {
     return fetch(`${userUrl}/${uid}/places`, {
         credentials: 'include'
     })
@@ -14,7 +14,7 @@ export const fetchPlacesForUser = (uid) => {
         })
 };
 
-export const fetchPlacesForCity = (cid) => {
+const fetchPlacesForCity = (cid) => {
     return fetch(`${cityUrl}/${cid}/places`, {
         credentials: 'include'
     })
@@ -23,7 +23,7 @@ export const fetchPlacesForCity = (cid) => {
         })
 };
 
-export const fetchPlaceById = (pid) => {
+const fetchPlaceById = (pid) => {
     return fetch(`${placeUrl}/${pid}`, {
         credentials: 'include'
     })
@@ -32,7 +32,7 @@ export const fetchPlaceById = (pid) => {
         })
 };
 
-export const createPlace = (uid, cid, place) => {
+const createPlace = (uid, cid, place) => {
     return fetch(`${userUrl}/${uid}/cities/${cid}/places`, {
         method: 'POST',
         body: JSON.stringify(place),
@@ -44,7 +44,7 @@ export const createPlace = (uid, cid, place) => {
         .then(response => response.json())
 }
 
-export const deletePlace = (pid) => {
+const deletePlace = (pid) => {
     return fetch(`${placeUrl}/${pid}`, {
         method: 'DELETE',
         credentials: 'include'
@@ -64,7 +64,7 @@ export const updatePlace = (pid, newPlace) =>
     })
         .then(response => response.json());
 
-export const addTripToPlace = (pid, tid) =>
+const addTripToPlace = (pid, tid) =>
     fetch(`${placeUrl}/${pid}/trips/${tid}`, {
         method: "PUT",
         headers: {

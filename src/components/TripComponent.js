@@ -25,28 +25,14 @@ import {LinkContainer} from "react-router-bootstrap";
 import Button from "react-bootstrap/Button";
 import {FormControl, InputGroup} from "react-bootstrap";
 import {fetchAllUsers} from "../actions/userActions";
+import Itinerary from "./ItineraryComponent";
 
 class Trip extends React.Component {
 
     constructor(props) {
         super(props);
-        let active = 2;
-        let days = [];
-        for (let number = 1; number <= 5; number++) {
-            days.push(
-                <Pagination.Item key={number} active={number === active}>
-                    Day {number}
-                </Pagination.Item>,
-            );
-        }
-        days.push(
-            <Pagination.Item key={-1}>
-                <FontAwesomeIcon icon={faPlus}/>
-            </Pagination.Item>,
-        );
         this.state = {
             key: this.props.match.params.tab,
-            days: days,
             selectedCityId: '',
             selectedPlaceId: '',
             selectedAttendeeId: '',
@@ -262,17 +248,7 @@ class Trip extends React.Component {
                         </Nav>
                     </div>
                     {this.state.key === "itinerary" &&
-                     <div>
-                         <h1>Itinerary</h1>
-                         <Pagination>{this.state.days}</Pagination>
-                         <ListGroup className="col-6">
-                             <ListGroup.Item>Activity 1</ListGroup.Item>
-                             <ListGroup.Item>Activity 2</ListGroup.Item>
-                             <ListGroup.Item>Activity 3</ListGroup.Item>
-                             <ListGroup.Item>Activity 4</ListGroup.Item>
-                             <ListGroup.Item>Activity 5</ListGroup.Item>
-                         </ListGroup>
-                     </div>}
+                     <Itinerary/>}
                     {this.state.key === "tripCities" &&
                      <div>
                          {this.props.userDetails._id === this.props.trip.userId &&

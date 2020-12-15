@@ -5,9 +5,13 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import {fetchActiveUser, logoutUser} from "../actions/userActions";
-import {clearCitiesForUser} from "../actions/locations/cityActions";
-import {clearTripsForUser} from "../actions/tripActions";
-import {clearPlacesForUser} from "../actions/locations/placeActions";
+import {clearCitiesForUser, fetchCitiesForUser} from "../actions/locations/cityActions";
+import {
+    clearTripsForUser,
+    fetchTripsAttendingForUser,
+    fetchTripsForUser
+} from "../actions/tripActions";
+import {clearPlacesForUser, fetchPlacesForUser} from "../actions/locations/placeActions";
 import {clearCityResults, updateSearchCity} from "../actions/search/citySearchActions";
 import {clearPlaceResults, updateSearchPlace} from "../actions/search/placeSearchActions";
 import {connect} from "react-redux";
@@ -16,6 +20,9 @@ import userPlaceService from "../services/userPlaceService";
 import userTripService from "../services/userTripService";
 import ListGroup from "react-bootstrap/ListGroup";
 import {Link} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCheck, faTrash} from "@fortawesome/free-solid-svg-icons";
+import Table from "react-bootstrap/Table";
 
 class Homepage extends React.Component {
 
@@ -30,6 +37,7 @@ class Homepage extends React.Component {
     }
 
     componentDidMount() {
+        this.props.fetchActiveUser()
         userCityService.fetchTopCities()
             .then(cities => {
                 this.setState(prevState => {
@@ -62,6 +70,23 @@ class Homepage extends React.Component {
                         }
                     )})
             })
+        if (this.props.userDetails._id) {
+            this.props.fetchCitiesForUser(this.props.userDetails._id);
+            this.props.fetchTripsForUser(this.props.userDetails._id);
+            this.props.fetchTripsAttendingForUser(this.props.userDetails._id);
+            this.props.fetchPlacesForUser(this.props.userDetails._id);
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.userDetails._id !== this.props.userDetails._id) {
+            if (this.props.userDetails._id) {
+                this.props.fetchCitiesForUser(this.props.userDetails._id);
+                this.props.fetchTripsForUser(this.props.userDetails._id);
+                this.props.fetchTripsAttendingForUser(this.props.userDetails._id);
+                this.props.fetchPlacesForUser(this.props.userDetails._id);
+            }
+        }
     }
 
     login = () => {
@@ -77,20 +102,66 @@ class Homepage extends React.Component {
             <div>
                 <Jumbotron>
                     <h1>Traveler</h1>
-                    <p>
-                        Welcome to Traveler, a site to plan your next big adventure!
-                    </p>
-                    <p>
-                        Sign Up, Login, or have a look around
-                    </p>
-                    <div className="container-fluid">
-                         <div className="row">
-                            <Button onClick={this.login} variant="primary m-2">Login</Button>
-                            <Button onClick={this.signUp} variant="primary m-2">Sign Up</Button>
-                        </div>
-                    </div>
+                    {this.props.userDetails._id &&
+                     <div>
+                         <p>
+                             Welcome back to Traveler!
+                         </p>
+                     </div>
+                    }
+                    {!this.props.userDetails._id &&
+                     <div>
+                         <p>
+                             Welcome to Traveler, a site to plan your next big adventure!
+                         </p>
+                         <p>
+                             Sign Up, Login, or have a look around
+                         </p>
+                         <div className="container-fluid">
+                             <div className="row">
+                                 <Button onClick={this.login} variant="primary m-2">Login</Button>
+                                 <Button onClick={this.signUp} variant="primary m-2">Sign
+                                     Up</Button>
+                             </div>
+                         </div>
+                     </div>
+                    }
                 </Jumbotron>
+                {this.props.userDetails._id &&
+                 <div className="container">
+                     <h3>User Stats</h3>
+                     <div className="row">
+                         <Table striped bordered hover>
+                             <thead>
+                             <tr>
+                                 <th>Cities</th>
+                                 <th>Places</th>
+                                 <th>Trips Planned</th>
+                                 <th>Trips Planned</th>
+                             </tr>
+                             </thead>
+                             <tbody>
+                             <tr key={this.props.userDetails._id}>
+                                 <td>
+                                     {this.props.userCities.length}
+                                 </td>
+                                 <td>
+                                     {this.props.userPlaces.length}
+                                 </td>
+                                 <td>
+                                     {this.props.userTrips.length}
+                                 </td>
+                                 <td>
+                                     {this.props.userTripsAttending.length}
+                                 </td>
+                             </tr>
+                             </tbody>
+                         </Table>
+                     </div>
+                 </div>
+                }
                 <div className="container">
+                    <h3>Site Stats</h3>
                     <div className="row">
                         <div className="col-md-4 mb-2">
                             <Card>
@@ -147,7 +218,11 @@ class Homepage extends React.Component {
 }
 
 const stateToPropertyMapper = (state) => ({
-    userDetails: state.userReducer.userDetails
+    userDetails: state.userReducer.userDetails,
+    userCities: state.cityReducer.userCities,
+    userTrips: state.tripReducer.userTrips,
+    userTripsAttending: state.tripReducer.userTripsAttending,
+    userPlaces: state.placeReducer.userPlaces,
 });
 
 const propertyToDispatchMapper = (dispatch) => ({
@@ -159,7 +234,11 @@ const propertyToDispatchMapper = (dispatch) => ({
     clearCityResults: () => clearCityResults(dispatch),
     clearPlaceResults: () => clearPlaceResults(dispatch),
     updateSearchCity: (city) => updateSearchCity(dispatch, city),
-    updateSearchPlace: (place) => updateSearchPlace(dispatch,place)
+    updateSearchPlace: (place) => updateSearchPlace(dispatch,place),
+    fetchCitiesForUser: (uid) => fetchCitiesForUser(dispatch, uid),
+    fetchTripsForUser: (uid) => fetchTripsForUser(dispatch, uid),
+    fetchTripsAttendingForUser: (uid) => fetchTripsAttendingForUser(dispatch, uid),
+    fetchPlacesForUser: (uid) => fetchPlacesForUser(dispatch, uid),
 });
 
 

@@ -196,7 +196,7 @@ export class Profile extends React.Component {
                                          Add Trip
                                      </Button>
                                  </div>
-                                 <div className="row">
+                                 <div className="row mt-2">
                                      <h2>Trips (Attending)</h2>
                                      <Table striped bordered hover>
                                          <thead>
@@ -228,51 +228,55 @@ export class Profile extends React.Component {
                              </div>
                          </div>
                          <div className="col-sm-6">
-                             <h2>Cities</h2>
-                             <Table striped bordered hover>
-                                 <thead>
-                                 <tr>
-                                     <th>Name</th>
-                                     <th>Country</th>
-                                     <th>State/Province</th>
-                                     <th>Visited</th>
-                                     {this.state.editing &&
-                                      <th>Delete</th>}
-                                 </tr>
-                                 </thead>
-                                 <tbody>
-                                 {this.props.userCities.map(city =>
-                                                                (
-                                                                    <tr key={city._id}>
-                                                                        <td>
-                                                                            <Link
-                                                                                to={`/profile/city/${city._id}`}>
-                                                                                {city.name}
-                                                                            </Link>
-                                                                        </td>
-                                                                        <td>{city.country}</td>
-                                                                        <td>{city.state}</td>
-                                                                        <td>
-                                                                            {city.lastVisited &&
-                                                                             <FontAwesomeIcon
-                                                                                 icon={faCheck}/>}
-                                                                        </td>
-                                                                        {this.state.editing &&
-                                                                         <td>
-                                                                             <Button
-                                                                                 className="table_delete"
-                                                                                 variant="danger"
-                                                                                 onClick={() => this.props.deleteCity(
-                                                                                     city._id)}>
-                                                                                 <FontAwesomeIcon
-                                                                                     icon={faTrash}/>
-                                                                             </Button>
-                                                                         </td>}
-                                                                    </tr>
-                                                                )
-                                 )}
-                                 </tbody>
-                             </Table>
+                             <div className="container-fluid">
+                                 <div className="row">
+                                     <h2>Cities</h2>
+                                     <Table striped bordered hover>
+                                         <thead>
+                                         <tr>
+                                             <th>Name</th>
+                                             <th>Country</th>
+                                             <th>State/Province</th>
+                                             <th>Visited</th>
+                                             {this.state.editing &&
+                                              <th>Delete</th>}
+                                         </tr>
+                                         </thead>
+                                         <tbody>
+                                         {this.props.userCities.map(city =>
+                                                                        (
+                                                                            <tr key={city._id}>
+                                                                                <td>
+                                                                                    <Link
+                                                                                        to={`/profile/city/${city._id}`}>
+                                                                                        {city.name}
+                                                                                    </Link>
+                                                                                </td>
+                                                                                <td>{city.country}</td>
+                                                                                <td>{city.state}</td>
+                                                                                <td>
+                                                                                    {city.lastVisited &&
+                                                                                     <FontAwesomeIcon
+                                                                                         icon={faCheck}/>}
+                                                                                </td>
+                                                                                {this.state.editing &&
+                                                                                 <td>
+                                                                                     <Button
+                                                                                         className="table_delete"
+                                                                                         variant="danger"
+                                                                                         onClick={() => this.props.deleteCity(
+                                                                                             city._id)}>
+                                                                                         <FontAwesomeIcon
+                                                                                             icon={faTrash}/>
+                                                                                     </Button>
+                                                                                 </td>}
+                                                                            </tr>
+                                                                        )
+                                         )}
+                                         </tbody>
+                                     </Table>
+                                 </div>
+                             </div>
                          </div>
                      </div>
                  </div>

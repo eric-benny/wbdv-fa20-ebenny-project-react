@@ -53,10 +53,20 @@ const updateCity = (cid, newCity) =>
     })
         .then(response => response.json());
 
+const fetchTopCities = () => {
+    return fetch(`${cityUrl}/aggregate/top`, {
+        credentials: 'include'
+    })
+        .then(response => {
+            return response.json()
+        })
+};
+
 export default {
     fetchCitiesForUser,
     fetchCityById,
     createCity,
     deleteCity,
-    updateCity
+    updateCity,
+    fetchTopCities
 }

@@ -5,6 +5,7 @@ import cityReducer from "./cityReducer";
 import tripReducer from "./tripReducer";
 import userReducer from "./userReducer";
 import activityReducer from "./activityReducer";
+import logReducer from "./logReducer";
 
 const rootReducer = combineReducers(
     {
@@ -13,7 +14,8 @@ const rootReducer = combineReducers(
         cityReducer,
         tripReducer,
         userReducer,
-        activityReducer
+        activityReducer,
+        logReducer
     });
 
 export default rootReducer

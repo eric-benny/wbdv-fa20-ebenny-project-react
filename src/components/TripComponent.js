@@ -26,6 +26,7 @@ import Button from "react-bootstrap/Button";
 import {FormControl, InputGroup} from "react-bootstrap";
 import {fetchAllUsers} from "../actions/userActions";
 import Itinerary from "./ItineraryComponent";
+import Log from "./LogComponent";
 
 class Trip extends React.Component {
 
@@ -52,6 +53,17 @@ class Trip extends React.Component {
         if (prevProps.userDetails._id !== this.props.userDetails._id) {
             if (this.props.userDetails._id) {
                 this.props.fetchCitiesForUser(this.props.userDetails._id);
+            }
+        }
+        if (prevProps.match.params.tab !== this.props.match.params.tab) {
+            if (this.props.match.params.tab) {
+                this.setState(prevState => {
+                    return (
+                        {
+                            ...prevState,
+                            key: this.props.match.params.tab
+                        }
+                    )})
             }
         }
     }
@@ -223,7 +235,7 @@ class Trip extends React.Component {
                         </InputGroup>
                     </div>
                     <div className="row mt-2">
-                        <Nav variant="tabs" defaultActiveKey={this.props.match.params.tab}
+                        <Nav variant="tabs" activeKey={this.props.match.params.tab}
                              onSelect={this.handleSelect}>
                             <Nav.Item>
                                 <Nav.Link to={`/trip/${this.props.trip._id}/itinerary`} eventKey="itinerary">
@@ -235,11 +247,15 @@ class Trip extends React.Component {
                                     Cities
                                 </Nav.Link>
                             </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link to={`/trip/${this.props.trip._id}/og`} eventKey="log">
-                                    Travel Log
-                                </Nav.Link>
-                            </Nav.Item>
+                            {(this.props.userDetails._id === this.props.trip.userId ||
+                              (this.props.trip.attendees && this.props.trip.attendees.find(
+                                  attendee => this.props.userDetails._id === attendee._id))) &&
+                             <Nav.Item>
+                                 <Nav.Link to={`/trip/${this.props.trip._id}/log`} eventKey="log">
+                                     Travel Log
+                                 </Nav.Link>
+                             </Nav.Item>
+                            }
                             <Nav.Item>
                                 <Nav.Link to={`/trip/${this.props.trip._id}/attendees`} eventKey="attendees">
                                     Attendees
@@ -279,7 +295,7 @@ class Trip extends React.Component {
                          }
                          <div className="row">
                              <Nav variant="pills"
-                                  className="flex-column col-3"
+                                  className="flex-column col-3 mt-2"
                                   onSelect={this.handleCitySelect}
                                   defaultActiveKey={this.state.selectedTripCity}>
                                  {this.props.trip.cities && this.props.trip.cities.map(city =>
@@ -320,56 +336,25 @@ class Trip extends React.Component {
                                        </div>
                                    </form>
                                   }
-                                  <ul>
+                                  <h5 className="mt-2">Places</h5>
+                                  <ListGroup className="col-6 mt-2">
                                       {this.props.cityPlaces && this.props.cityPlaces.map(place => {
                                                                                               if (place.trips.includes(this.props.trip._id)) {
                                                                                                   return (
-                                                                                                      <li>
-                                                                                                          {place.name}
-                                                                                                      </li>
+                                                                                                      <ListGroup.Item>{place.name}</ListGroup.Item>
                                                                                                   )
                                                                                               }
                                                                                           }
                                       )}
-                                  </ul>
+                                  </ListGroup>
                               </div>
                              }
                          </div>
                      </div>}
                     {this.state.key === "log" &&
-                     <div>
-                         <h1>Travel Log</h1>
-                         <div className="row">
-                             <Nav variant="pills" defaultActiveKey="1"
-                                  className="flex-column col-3">
-                                 <Nav.Item>
-                                     <Nav.Link eventKey="1">City Day 11/21/15</Nav.Link>
-                                 </Nav.Item>
-                                 <Nav.Item>
-                                     <Nav.Link eventKey="2">Hike 11/22/15</Nav.Link>
-                                 </Nav.Item>
-                                 <Nav.Item>
-                                     <Nav.Link eventKey="3">Museum 11/23/15</Nav.Link>
-                                 </Nav.Item>
-                                 <div className="container">
-                                     <div className="row">
-                                         <div className="col-12">
-                                             <button className="mt-1 btn fa fa-plus fa-lg pull-right"/>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </Nav>
-                             <div className="col-9">
-                                 <div className="row">
-                                     <div className="container">
-                                         <h1>Title for the Log</h1>
-                                         <p>this is what happened</p>
-                                         <p>maybe a picture could go here too</p>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>}
+                     (this.props.userDetails._id === this.props.trip.userId ||
+                      (this.props.trip.attendees && this.props.trip.attendees.find(attendee => this.props.userDetails._id === attendee._id))) &&
+                     <Log/>}
                     {this.state.key === "attendees" &&
                      <div>
                          {this.props.userDetails._id === this.props.trip.userId &&

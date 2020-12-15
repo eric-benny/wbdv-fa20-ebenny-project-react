@@ -80,6 +80,15 @@ const addAttendeeToTrip = (tid, uid) => {
         })
 };
 
+const fetchRecentTrips = () => {
+    return fetch(`${tripUrl}/aggregate/recent`, {
+        credentials: 'include'
+    })
+        .then(response => {
+            return response.json()
+        })
+};
+
 export default {
     fetchTripsForUser,
     fetchTripById,
@@ -88,5 +97,6 @@ export default {
     addCityToTrip,
     updateTrip,
     addAttendeeToTrip,
-    fetchTripsAttendingForUser
+    fetchTripsAttendingForUser,
+    fetchRecentTrips
 }

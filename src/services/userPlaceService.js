@@ -73,6 +73,15 @@ const addTripToPlace = (pid, tid) =>
     })
         .then(response => response.json());
 
+const fetchTopPlaces = () => {
+    return fetch(`${placeUrl}/aggregate/top`, {
+        credentials: 'include'
+    })
+        .then(response => {
+            return response.json()
+        })
+};
+
 export default {
     fetchPlacesForUser,
     fetchPlaceById,
@@ -80,5 +89,6 @@ export default {
     fetchPlacesForCity,
     deletePlace,
     updatePlace,
-    addTripToPlace
+    addTripToPlace,
+    fetchTopPlaces
 }

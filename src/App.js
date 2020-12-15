@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import './css/tableStyles.css'
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import Homepage from "./components/HomepageConmponent";
 import {Provider} from "react-redux";
 import {createStore} from "redux";
@@ -26,6 +26,15 @@ function App() {
             <BrowserRouter>
                 <Navigation/>
                 <div>
+                    <Route
+                        exact
+                        path="/"
+                        render={() => {
+                            return (
+                                <Redirect to="/home" />
+                            )
+                        }}
+                    />
                     <Route path={["/home"]}
                            exact
                            component={Homepage}/>

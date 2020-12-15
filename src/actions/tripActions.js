@@ -1,13 +1,10 @@
 import userTripService from "../services/userTripService";
-import {ADD_CITY, SAVE_CITY, UPDATE_CITY} from "./locations/cityActions";
-import userCityService from "../services/userCityService";
 
 export const FETCH_TRIP = 'FETCH_TRIP';
 export const FETCH_TRIPS_FOR_USER = 'FETCH_TRIPS_FOR_USER';
 export const CLEAR_TRIPS_FOR_USER = 'CLEAR_TRIPS_FOR_USER';
 export const DELETE_TRIP = 'DELETE_TRIP';
 export const CREATE_TRIP = 'CREATE_TRIP';
-export const ADD_CITY_TO_TRIP = 'ADD_CITY_TO_TRIP';
 export const UPDATE_TRIP = 'UPDATE_TRIP';
 export const SAVE_TRIP = 'SAVE_TRIP';
 export const FETCH_TRIPS_ATTENDING_FOR_USER = 'FETCH_TRIPS_ATTENDING_FOR_USER';

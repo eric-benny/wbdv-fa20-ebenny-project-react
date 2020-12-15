@@ -10,7 +10,7 @@ import {
     CLEAR_PLACE_AUTOFILL,
     PLACE_AUTOFILL,
     UPDATE_SEARCH_PLACE,
-    PLACE_RESULTS, CLEAR_PLACE_RESULTS
+    PLACE_RESULTS, CLEAR_PLACE_RESULTS, FETCH_PLACE_DETAIL
 } from "../actions/search/placeSearchActions";
 
 const initialState = {
@@ -19,7 +19,8 @@ const initialState = {
     citySearchResults: [],
     autofillPlaces: [],
     searchPlace: '',
-    placeSearchResults: []
+    placeSearchResults: [],
+    placeDetail: {}
 }
 
 const searchReducer = (state=initialState, action) => {
@@ -108,6 +109,11 @@ const searchReducer = (state=initialState, action) => {
                     }
                 })
                 };
+        case FETCH_PLACE_DETAIL:
+            return {
+                ...state,
+                placeDetail: action.place
+            };
         default:
             return state
     }

@@ -9,7 +9,6 @@ export const SAVE_USER = 'SAVE_USER';
 export const fetchActiveUser = (dispatch) => {
     userService.fetchUser()
         .then(user => {
-            console.log(user);
             dispatch({ type: FETCH_ACTIVE_USER, user })
         });
 };

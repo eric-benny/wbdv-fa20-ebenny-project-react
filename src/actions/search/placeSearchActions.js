@@ -1,10 +1,11 @@
-import {fetchAutofillPlaces, fetchPlaces} from "../../services/placeService";
+import placeService, {fetchAutofillPlaces, fetchPlaces} from "../../services/placeService";
 
 export const PLACE_AUTOFILL = 'PLACE_AUTOFILL';
 export const CLEAR_PLACE_AUTOFILL = 'CLEAR_PLACE_AUTOFILL';
 export const UPDATE_SEARCH_PLACE = 'UPDATE_SEARCH_PLACE';
 export const PLACE_RESULTS = 'PLACE_RESULTS';
 export const CLEAR_PLACE_RESULTS = 'CLEAR_PLACE_RESULTS';
+export const FETCH_PLACE_DETAIL = 'FETCH_PLACE_DETAIL';
 
 export const updateAutofillPlaces = (dispatch, placeSearchField) => {
     if (placeSearchField === '') {
@@ -27,4 +28,9 @@ export const executePlaceSearch = (dispatch, place) => {
     fetchPlaces(place)
         .then(results => dispatch({type: PLACE_RESULTS, places: results}))
 };
+
+export const fetchPlaceDetail = (dispatch, id, idType) => {
+    placeService.fetchPlace(id, idType)
+        .then(place => dispatch({type: FETCH_PLACE_DETAIL, place}))
+}
 

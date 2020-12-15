@@ -15,7 +15,8 @@ import {
     clearPlaceResults,
     executePlaceSearch,
     updateAutofillPlaces,
-    updateSearchPlace
+    updateSearchPlace,
+    fetchPlaceDetail
 } from "../../actions/search/placeSearchActions";
 import {addPlace, fetchPlacesForUser} from "../../actions/locations/placeActions";
 
@@ -27,7 +28,8 @@ class SearchComponent extends React.Component {
         const type = this.props.match.params.type;
         this.state = {
             key: type,
-            selectedCityId: ''
+            selectedCityId: '',
+            modalShow: false
         }
     }
 
@@ -175,6 +177,31 @@ class SearchComponent extends React.Component {
         }
     };
 
+    handleClose = () => {
+        this.setState(prevState => {
+            return (
+                {
+                    ...prevState,
+                    modalShow: false
+                }
+            )});
+    }
+
+    handleShow = () => {
+        this.setState(prevState => {
+            return (
+                {
+                    ...prevState,
+                    modalShow: true
+                }
+            )});
+    }
+
+    selectPlace = (id, idType) => {
+        this.props.fetchPlaceDetail(id, idType);
+        this.handleShow()
+    }
+
     render() {
 
         return(
@@ -221,6 +248,11 @@ class SearchComponent extends React.Component {
                      onSelect={this.onPlaceSelect}
                      selectedCityId={this.state.selectedCityId}
                      handleSelectedCityChange={this.handleSelectedCityChange}
+                     handleShow={this.handleShow}
+                     handleClose={this.handleClose}
+                     modalShow={this.state.modalShow}
+                     placeDetail={this.props.placeDetail}
+                     selectPlace={this.selectPlace}
                  />
                 }
             </div>
@@ -238,7 +270,8 @@ const stateToPropertyMapper = (state) => ({
     autofillPlaces: state.searchReducer.autofillPlaces,
     searchPlace: state.searchReducer.searchPlace,
     placeSearchResults: state.searchReducer.placeSearchResults,
-    userPlaces: state.placeReducer.userPlaces
+    userPlaces: state.placeReducer.userPlaces,
+    placeDetail: state.searchReducer.placeDetail
 });
 
 const propertyToDispatchMapper = (dispatch) => ({
@@ -254,6 +287,7 @@ const propertyToDispatchMapper = (dispatch) => ({
     executePlaceSearch: (place) => executePlaceSearch(dispatch, place),
     addPlace: (uid, cid, place) => addPlace(dispatch, uid, cid, place),
     clearPlaceResults: () => clearPlaceResults(dispatch),
+    fetchPlaceDetail: (id, idType) => fetchPlaceDetail(dispatch, id, idType)
 });
 
 

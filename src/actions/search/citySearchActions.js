@@ -15,7 +15,7 @@ export const updateAutofillCities = (dispatch, citySearchField) => {
 
                 let resArr = [];
                 results.geonames.forEach(function(item){
-                    let i = resArr.findIndex(x => x.toponymName == item.toponymName);
+                    let i = resArr.findIndex(x => x.toponymName === item.toponymName);
                     if(i <= -1){
                         resArr.push(item);
                     }

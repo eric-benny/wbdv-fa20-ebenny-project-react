@@ -6,8 +6,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Table from "react-bootstrap/Table";
-
-
+import Modal from "react-bootstrap/Modal";
+import Container from "react-bootstrap/Container";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faCheck} from "@fortawesome/free-solid-svg-icons";
 
 const PlaceSearchComponent = (
     {
@@ -22,7 +24,12 @@ const PlaceSearchComponent = (
         addPlace,
         onSelect,
         selectedCityId='',
-        handleSelectedCityChange
+        handleSelectedCityChange,
+        handleShow,
+        handleClose,
+        modalShow,
+        selectPlace,
+        placeDetail
     }) =>
     <div>
         <div className="container my-2">
@@ -66,7 +73,6 @@ const PlaceSearchComponent = (
                      <tr>
                          <th>Name</th>
                          <th>Category</th>
-                         <th>Details</th>
                          <th>
                              <select placeholder="select a city" onChange={handleSelectedCityChange} value={selectedCityId}>
                                  <option key="1" value="" disabled>Select a city...</option>
@@ -83,9 +89,13 @@ const PlaceSearchComponent = (
                          })) {
                              return (
                                  <tr key={place.id}>
-                                     <th>{place.name}</th>
+                                     <th>
+                                         <Button onClick={() => selectPlace(place.id, place.idType)}
+                                                 variant="link">
+                                             {place.name}
+                                         </Button>
+                                     </th>
                                      <th>{place.type}</th>
-                                     <th>{place.details}</th>
                                      <th>
                                          added
                                      </th>
@@ -94,9 +104,13 @@ const PlaceSearchComponent = (
                          } else {
                              return (
                                  <tr key={place.id}>
-                                     <th>{place.name}</th>
+                                     <th>
+                                         <Button onClick={() => selectPlace(place.id, place.idType)}
+                                                 variant="link">
+                                             {place.name}
+                                         </Button>
+                                     </th>
                                      <th>{place.type}</th>
-                                     <th>{place.details}</th>
                                      <th>
                                          <Button className="fa fa-plus fa-lg"
                                                  disabled={!userDetails._id}
@@ -114,6 +128,41 @@ const PlaceSearchComponent = (
                 }
             </Row>
         </div>
+        <Button variant="primary" onClick={handleShow}>
+            Launch demo modal
+        </Button>
+        <Modal show={modalShow} onHide={handleClose} size="lg">
+            <Modal.Header closeButton>
+                <Modal.Title>{(placeDetail.namedetails && placeDetail.namedetails.name) ? placeDetail.namedetails.name: placeDetail.display_name}</Modal.Title>
+                {userPlaces.find(userPlace => {
+                    return userPlace.infoId === placeDetail.osm_id
+                }) &&
+                 <FontAwesomeIcon className="m-2" icon={faCheck}/>}
+            </Modal.Header>
+            <Modal.Body>
+                <Container>
+                    <Row>
+                        <Col md={6}>
+                            <h4 className="row">Address</h4>
+                            {placeDetail.address && Object.keys(placeDetail.address).map(function(key) {
+                                return <p className="whiteSpaceNoWrap row">{ `${key}: ${placeDetail.address[key]}` }</p>
+                            })}
+                        </Col>
+                        <Col md={6}>
+                            <h4 className="row">Info</h4>
+                            {placeDetail.extratags && Object.keys(placeDetail.extratags).map(function(key) {
+                                return <p className="whiteSpaceNoWrap row">{ `${key}: ${placeDetail.extratags[key]}` }</p>
+                            })}
+                        </Col>
+                    </Row>
+                </Container>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+            </Modal.Footer>
+        </Modal>
     </div>;
 
 export default PlaceSearchComponent

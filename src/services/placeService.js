@@ -16,7 +16,7 @@ export const fetchPlaces = (place) => {
 };
 
 export const fetchPlace = (infoId, infoType) => {
-    return fetch(`https://us1.locationiq.com/v1/reverse.php?key=pk.2b6c39d5db0774c80f1a06129ec749a9&osm_id=${infoId}&osm_type=${infoType}&format=json`)
+    return fetch(`https://us1.locationiq.com/v1/reverse.php?key=pk.2b6c39d5db0774c80f1a06129ec749a9&osm_id=${infoId}&osm_type=${infoType}&extratags=1&namedetails=1&format=json`)
         .then(response => {
             return response.json()
         })

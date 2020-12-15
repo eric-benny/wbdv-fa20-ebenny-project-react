@@ -12,12 +12,14 @@ export const updateAutofillCities = (dispatch, citySearchField) => {
     } else if (citySearchField.length >= 3) {
         cityService.fetchAutofillCities(citySearchField)
             .then(results => {
-
+                const size = 10;
                 let resArr = [];
                 results.geonames.forEach(function(item){
                     let i = resArr.findIndex(x => x.toponymName === item.toponymName);
                     if(i <= -1){
-                        resArr.push(item);
+                        if (resArr.length < 10) {
+                            resArr.push(item);
+                        }
                     }
                 });
 

@@ -137,7 +137,7 @@ class Homepage extends React.Component {
                                  <th>Cities</th>
                                  <th>Places</th>
                                  <th>Trips Planned</th>
-                                 <th>Trips Planned</th>
+                                 <th>Trips Attended</th>
                              </tr>
                              </thead>
                              <tbody>

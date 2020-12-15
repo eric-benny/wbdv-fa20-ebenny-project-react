@@ -128,9 +128,6 @@ const PlaceSearchComponent = (
                 }
             </Row>
         </div>
-        <Button variant="primary" onClick={handleShow}>
-            Launch demo modal
-        </Button>
         <Modal show={modalShow} onHide={handleClose} size="lg">
             <Modal.Header closeButton>
                 <Modal.Title>{(placeDetail.namedetails && placeDetail.namedetails.name) ? placeDetail.namedetails.name: placeDetail.display_name}</Modal.Title>
